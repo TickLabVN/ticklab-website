@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
     "baseUrl": ".",
     "esModuleInterop": true,
     "target": "ES2022",
@@ -10,7 +13,6 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
