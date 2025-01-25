@@ -16,9 +16,9 @@ export const MissionSection: Block = {
     {
       name: 'visionContent',
       type: 'textarea',
-      defaultValue: `To become a good starting point for the process of cultivating morality, enhancing capabilities, and developing the qualities of outstanding Vietnamese individuals. This is what sets the organization apart. "Talent without virtue is useless, virtue without talent makes everything difficult." TickLab always adheres to this saying, aiming for an environment that fosters comprehensive development in both character and ability.
+      defaultValue: `To become a good launcher for the process of moral cultivation, skill building and training of the excellent Vietnamese human qualities. Talent without virtue is useless, virtue without talent makes everything difficult
 
-To become a human resource and career development organization that makes significant contributions to the nation's building and innovation. Each individual originating from TickLab will be a valuable asset, creating value for the community, contributing effective solutions to the country's scientific and technical problems, and raising the nation's position to be on par with world powers.`,
+Develop resources and contribute to the country's construction and renovation, fostering individuals who create value, solve challenges, and elevate the nation's global standing.`,
       required: true,
     },
     {
