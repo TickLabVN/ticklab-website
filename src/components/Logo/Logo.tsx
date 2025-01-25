@@ -21,7 +21,7 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[35px]', className)}
+      className={clsx('max-w-[9.375rem] w-full', className)}
       src={`${getClientSideURL()}/media/TickLab-logo.svg`}
     />
   )
