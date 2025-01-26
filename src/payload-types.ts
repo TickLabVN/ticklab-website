@@ -173,6 +173,19 @@ export interface Page {
         blockName?: string | null;
         blockType: 'coreValue';
       }
+    | {
+        title: string;
+        description: string;
+        slides: {
+          title: string;
+          image: string | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'sliderSection';
+      }
+    | TeamBlock
   )[];
   meta?: {
     title?: string | null;
@@ -710,6 +723,25 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock".
+ */
+export interface TeamBlock {
+  title: string;
+  description: string;
+  /**
+   * Add team photos with captions
+   */
+  photos: {
+    image: string | Media;
+    caption: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'team';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1035,6 +1067,22 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        sliderSection?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              slides?:
+                | T
+                | {
+                    title?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        team?: T | TeamBlockSelect<T>;
       };
   meta?:
     | T
@@ -1131,6 +1179,23 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock_select".
+ */
+export interface TeamBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  photos?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
