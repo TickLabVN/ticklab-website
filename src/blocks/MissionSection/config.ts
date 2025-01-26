@@ -18,7 +18,7 @@ export const MissionSection: Block = {
       type: 'textarea',
       defaultValue: `To become a good launcher for the process of moral cultivation, skill building and training of the excellent Vietnamese human qualities. Talent without virtue is useless, virtue without talent makes everything difficult
 
-Develop resources and contribute to the country's construction and renovation, fostering individuals who create value, solve challenges, and elevate the nation's global standing.`,
+To develop resources and contribute to the country's construction and renovation, fostering individuals who create value, solve challenges, and elevate the nation's global standing.`,
       required: true,
     },
     {
@@ -30,9 +30,9 @@ Develop resources and contribute to the country's construction and renovation, f
     {
       name: 'missionContent',
       type: 'textarea',
-      defaultValue: `To establish, maintain, and develop a comprehensive development environment for generations of students. TickLab will always be a human development organization. Each member of the organization must always preserve and promote traditional values, not lose the organization's original essence, and not allow the organization to be corrupted by bad intentions or personal gain.
+      defaultValue: `To establish, maintain, and develop a comprehensive development environment for generations of students. TickLab will always be a human development organization.
 
-To seek and nurture suitable students with the potential to become pioneers in building the nation. This is a mission for the community, the nation, and the people. TickLab always welcomes generations of students with shared aspirations, goals, sufficient qualities, enthusiasm, and courage to cultivate themselves together, achieve great things, and become a pioneering force in the country's development.`,
+To seek and nurture students with the potential to become pioneers in building the nation. TickLab always welcomes generations of students with shared aspirations, goals, sufficient qualities, enthusiasm, and courage to cultivate themselves together, achieve great things, and become a pioneering force in the country's development.`,
       required: true,
     },
   ],

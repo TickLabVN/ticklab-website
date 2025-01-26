@@ -35,12 +35,8 @@ const Title: React.FC<{ text: string; className?: string }> = ({ text, className
 const HighlightedText: React.FC<{ text: string }> = ({ text }) => {
   const highlightPatterns = [
     {
-      pattern: /(human resource|career development|significant contributions|valuable asset|creating value|effective solutions|scientific and technical|world powers)/g,
-      className: "font-semibold text-blue-600"
-    },
-    {
-      pattern: /(pioneers|building the nation|shared aspirations|goals|sufficient qualities|enthusiasm|courage|pioneering force)/g,
-      className: "font-bold underline decoration-teal-400 decoration-2"
+      pattern: /(shared aspirations|goals|sufficient qualities|enthusiasm|courage)/g,
+      className: "font-bold text-teal-700"
     },
     {
       pattern: /Talent without virtue is useless, virtue without talent makes everything difficult/g,
@@ -102,7 +98,7 @@ export const MissionSection: React.FC<Props> = ({ visionTitle, visionContent, mi
         </h1>
       </motion.div>
 
-      <div className="relative container mx-auto px-4 space-y-16">
+      <div className="relative container mx-auto px-4 space-y-16 mb-4">
         {/* Vision Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Vision Title Column */}

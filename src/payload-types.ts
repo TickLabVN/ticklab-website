@@ -150,6 +150,17 @@ export interface Page {
         blockName?: string | null;
         blockType: 'missionSection';
       }
+    | {
+        engineeringTitle: string;
+        engineeringContent: string;
+        engineeringImage: string | Media;
+        researchTitle: string;
+        researchContent: string;
+        researchImage: string | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'roleSection';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -982,6 +993,18 @@ export interface PagesSelect<T extends boolean = true> {
               visionContent?: T;
               missionTitle?: T;
               missionContent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        roleSection?:
+          | T
+          | {
+              engineeringTitle?: T;
+              engineeringContent?: T;
+              engineeringImage?: T;
+              researchTitle?: T;
+              researchContent?: T;
+              researchImage?: T;
               id?: T;
               blockName?: T;
             };
