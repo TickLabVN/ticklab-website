@@ -5,6 +5,7 @@ import type { Page } from '@/payload-types'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
+import { CoreValue } from '@/blocks/CoreValue/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MissionSection } from '@/blocks/MissionSection/Component'
@@ -12,8 +13,9 @@ import { RoleSection } from '@/blocks/RoleSection/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
+  callToAction: CallToActionBlock,
   content: ContentBlock,
-  cta: CallToActionBlock,
+  coreValue: CoreValue,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   missionSection: MissionSection,
@@ -34,11 +36,11 @@ export const RenderBlocks: React.FC<{
           const { blockType } = block
 
           if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+            const Block = blockComponents[blockType as keyof typeof blockComponents]
 
             if (Block) {
               return (
-                <div className="mb-16" key={index}>
+                <div className="my-16" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

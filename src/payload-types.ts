@@ -161,6 +161,18 @@ export interface Page {
         blockName?: string | null;
         blockType: 'roleSection';
       }
+    | {
+        title: string;
+        description: string;
+        values: {
+          title: string;
+          icon: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'coreValue';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -1005,6 +1017,21 @@ export interface PagesSelect<T extends boolean = true> {
               researchTitle?: T;
               researchContent?: T;
               researchImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        coreValue?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              values?:
+                | T
+                | {
+                    title?: T;
+                    icon?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
