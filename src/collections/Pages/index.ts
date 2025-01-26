@@ -12,6 +12,7 @@ import { MissionSection } from '../../blocks/MissionSection/config'
 import { RoleSection } from '../../blocks/RoleSection/config'
 import { SliderSection } from '../../blocks/SliderSection/config'
 import { Team } from '../../blocks/Team/config'
+import { FAQ } from '../../blocks/FAQ/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -80,7 +81,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, MissionSection, RoleSection, CoreValue, SliderSection, Team],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, MissionSection, RoleSection, CoreValue, SliderSection, Team, FAQ],
               required: true,
               admin: {
                 initCollapsed: true,

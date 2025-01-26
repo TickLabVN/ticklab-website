@@ -6,6 +6,7 @@ import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { CoreValue } from '@/blocks/CoreValue/Component'
+import { FAQ } from '@/blocks/FAQ/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MissionSection } from '@/blocks/MissionSection/Component'
@@ -18,6 +19,7 @@ const blockComponents = {
   callToAction: CallToActionBlock,
   content: ContentBlock,
   coreValue: CoreValue,
+  faq: FAQ,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   missionSection: MissionSection,

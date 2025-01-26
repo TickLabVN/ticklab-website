@@ -24,7 +24,7 @@ export const Team: React.FC<Props> = ({
   const isInView = useInView(containerRef, { once: true, amount: 0.2 })
 
   return (
-    <section className="relative w-full py-16 overflow-hidden bg-white">
+    <section className="relative w-full py-8 overflow-hidden bg-white">
       <motion.div
         className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)]"
         initial={{ opacity: 0 }}
@@ -39,14 +39,6 @@ export const Team: React.FC<Props> = ({
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={isInView ? { scale: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-block rounded-full bg-orange-100 px-4 py-1.5 mb-4"
-          >
-            <span className="text-sm font-medium text-orange-800">OUR TEAMS</span>
-          </motion.div>
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
             initial={{ opacity: 0, y: 20 }}
@@ -55,14 +47,6 @@ export const Team: React.FC<Props> = ({
           >
             {title}
           </motion.h2>
-          <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            {description}
-          </motion.p>
         </motion.div>
 
         <motion.div
