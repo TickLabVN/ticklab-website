@@ -187,6 +187,7 @@ export interface Page {
       }
     | TeamBlock
     | FAQBlock
+    | BlogBlock
   )[];
   meta?: {
     title?: string | null;
@@ -762,6 +763,33 @@ export interface FAQBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlogBlock".
+ */
+export interface BlogBlock {
+  title: string;
+  description: string;
+  /**
+   * Add blog posts
+   */
+  posts: {
+    image: string | Media;
+    category: string;
+    title: string;
+    description: string;
+    author: {
+      name: string;
+      avatar: string | Media;
+    };
+    publishedDate: string;
+    readTime: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'blog';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1104,6 +1132,7 @@ export interface PagesSelect<T extends boolean = true> {
             };
         team?: T | TeamBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
+        blog?: T | BlogBlockSelect<T>;
       };
   meta?:
     | T
@@ -1232,6 +1261,33 @@ export interface FAQBlockSelect<T extends boolean = true> {
     | {
         question?: T;
         answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlogBlock_select".
+ */
+export interface BlogBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  posts?:
+    | T
+    | {
+        image?: T;
+        category?: T;
+        title?: T;
+        description?: T;
+        author?:
+          | T
+          | {
+              name?: T;
+              avatar?: T;
+            };
+        publishedDate?: T;
+        readTime?: T;
         id?: T;
       };
   id?: T;

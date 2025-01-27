@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
+import { Blog } from '@/blocks/Blog/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { CoreValue } from '@/blocks/CoreValue/Component'
@@ -16,6 +17,7 @@ import { Team } from '@/blocks/Team/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
+  blog: Blog,
   callToAction: CallToActionBlock,
   content: ContentBlock,
   coreValue: CoreValue,

@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
+import { Blog } from '../../blocks/Blog/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { CoreValue } from '../../blocks/CoreValue/config'
@@ -81,7 +82,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, MissionSection, RoleSection, CoreValue, SliderSection, Team, FAQ],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, MissionSection, RoleSection, CoreValue, SliderSection, Team, FAQ, Blog],
               required: true,
               admin: {
                 initCollapsed: true,
