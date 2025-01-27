@@ -1741,26 +1741,38 @@ export interface Header {
  */
 export interface Footer {
   id: string;
-  navItems?:
+  quickLinks?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        name: string;
+        href: string;
         id?: string | null;
       }[]
     | null;
+  resources?:
+    | {
+        name: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  contact?: {
+    email?: string | null;
+    address?: string | null;
+    /**
+     * Facebook page URL
+     */
+    facebook?: string | null;
+    /**
+     * GitHub organization URL
+     */
+    github?: string | null;
+    /**
+     * YouTube channel URL
+     */
+    youtube?: string | null;
+  };
+  logo: string | Media;
+  companyName?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1792,20 +1804,31 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  quickLinks?:
     | T
     | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
+        name?: T;
+        href?: T;
         id?: T;
       };
+  resources?:
+    | T
+    | {
+        name?: T;
+        href?: T;
+        id?: T;
+      };
+  contact?:
+    | T
+    | {
+        email?: T;
+        address?: T;
+        facebook?: T;
+        github?: T;
+        youtube?: T;
+      };
+  logo?: T;
+  companyName?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

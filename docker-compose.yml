@@ -17,14 +17,17 @@ services:
 
   mongo:
     image: mongo:latest
+    container_name: mongodb
     ports:
-      - '27017:27017'
+      - '27018:27017'
     command:
       - --storageEngine=wiredTiger
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
     volumes:
       - data:/data/db
-    logging:
-      driver: none
+    restart: unless-stopped
 
 volumes:
   data:
