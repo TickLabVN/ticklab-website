@@ -49,17 +49,15 @@ jobs:
           APP_IMAGE: ${{ steps.set_image_name.outputs.APP_IMAGE }}
         run: |
           if [ ${{ github.ref_name }} == 'main' ]; then
-            echo NEXT_PUBLIC_SERVER_URL=https://ticklab.site > .env
             TAG_NAME=latest
           elif [ ${{ github.ref_name }} == 'staging' ]; then
-            echo NEXT_PUBLIC_SERVER_ENDPOINT=https://be-staging.mcnc.exchange > .env
             TAG_NAME=beta
           else
             printf "Invalid branch name: ${{ github.ref_name }}"
             exit 1
           fi
-          echo PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }} >> .env
-          cat .env
 
-          docker build -t ${{ env.APP_IMAGE }}:$TAG_NAME -t $APP_IMAGE:${{ github.sha }} .
+          docker build -t ${{ env.APP_IMAGE }}:$TAG_NAME \
+            --build-arg PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }} \
+            --build-arg NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }} .
           docker push --all-tags $APP_IMAGE
