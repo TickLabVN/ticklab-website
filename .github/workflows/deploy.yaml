@@ -2,9 +2,7 @@ on:
   push:
     branches:
       - main
-      - staging
     paths-ignore:
-      - '.husky/**'
       - '**.md'
 
 permissions:
@@ -35,13 +33,13 @@ jobs:
       - name: Set lower case repository name
         id: set_image_name
         run: |
-          echo "REPO_NAME=$(echo "${{ env.REPO_NAME }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "APP_IMAGE=${{ env.REGISTRY }}/${{ env.REPO_NAME }}" >> $GITHUB_OUTPUT
+          REPO_NAME_LOWER=$(echo "${{ env.REPO_NAME }}" | tr '[:upper:]' '[:lower:]')
+          echo "APP_IMAGE=${{ env.REGISTRY }}/$REPO_NAME_LOWER" >> $GITHUB_ENV
 
       - name: Build and push image for app
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ steps.set_image_name.outputs.APP_IMAGE }}
+          tags: ${{ steps.set_image_name.outputs.APP_IMAGE }}:latest
 
