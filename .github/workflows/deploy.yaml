@@ -34,7 +34,7 @@ jobs:
         id: set_image_name
         run: |
           REPO_NAME_LOWER=$(echo "${{ env.REPO_NAME }}" | tr '[:upper:]' '[:lower:]')
-          echo "APP_IMAGE=${{ env.REGISTRY }}/$REPO_NAME_LOWER" >> $GITHUB_ENV
+          echo "APP_IMAGE=${{ env.REGISTRY }}/$REPO_NAME_LOWER" >> $GITHUB_OUTPUT
 
       - name: Build and push image for app
         uses: docker/build-push-action@v6
