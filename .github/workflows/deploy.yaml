@@ -1,0 +1,47 @@
+on:
+  push:
+    branches:
+      - main
+      - staging
+    paths-ignore:
+      - '.husky/**'
+      - '**.md'
+
+permissions:
+  contents: write
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  REPO_NAME: ${{ github.repository }}
+  DEVOPS_REPO: ${{ github.repository_owner }}/devops
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      APP_IMAGE: ${{ steps.set_image_name.outputs.APP_IMAGE }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set lower case repository name
+        id: set_image_name
+        run: |
+          echo "REPO_NAME=$(echo "${{ env.REPO_NAME }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "APP_IMAGE=${{ env.REGISTRY }}/${{ env.REPO_NAME }}" >> $GITHUB_OUTPUT
+
+      - name: Build and push image for app
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.set_image_name.outputs.APP_IMAGE }}
+

@@ -1,34 +1,8 @@
-version: '3'
-
 services:
-  payload:
-    image: node:18-alpine
+  ticklab-website:
+    image: ticklab-website
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - '3000:3000'
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
-    depends_on:
-      - mongo
-    env_file:
-      - .env
-
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - '27018:27017'
-    command:
-      - --storageEngine=wiredTiger
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=
-      - MONGO_INITDB_ROOT_PASSWORD=
-    volumes:
-      - data:/data/db
-    restart: unless-stopped
-
-volumes:
-  data:
-  node_modules:
+      - "3000:3000"

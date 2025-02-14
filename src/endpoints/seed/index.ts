@@ -46,6 +46,7 @@ export const seed = async ({
       payload.updateGlobal({
         slug: global,
         data: {
+          // @ts-ignore
           navItems: [],
         },
         depth: 0,
@@ -364,6 +365,7 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'footer',
       data: {
+        // @ts-ignore
         navItems: [
           {
             link: {
