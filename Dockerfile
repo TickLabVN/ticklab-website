@@ -30,6 +30,8 @@ COPY . .
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
+ARG PAYLOAD_SECRET
+ARG NEXT_PUBLIC_SERVER_URL
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
@@ -46,6 +48,8 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+ARG PAYLOAD_SECRET
+ARG NEXT_PUBLIC_SERVER_URL
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
 # Uncomment the following line in case you want to disable telemetry during runtime.
