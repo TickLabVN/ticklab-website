@@ -3,6 +3,7 @@
 
 ARG PAYLOAD_SECRET=will_be_overridden
 ARG NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+ARG MONGODB_URI=mongodb://localhost:27017
 
 FROM node:22-alpine AS base
 

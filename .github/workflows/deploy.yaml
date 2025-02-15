@@ -63,6 +63,7 @@ jobs:
 
           docker build -t ${{ env.APP_IMAGE }}:$TAG_NAME \
             --build-arg PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }} \
-            --build-arg NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }} .
+            --build-arg NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }} \
+            --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} .
           docker push --all-tags $APP_IMAGE
 
