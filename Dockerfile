@@ -32,9 +32,11 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ARG PAYLOAD_SECRET
 ARG NEXT_PUBLIC_SERVER_URL
+ARG MONGODB_URI
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
+ENV MONGODB_URI=${MONGODB_URI}
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
@@ -50,10 +52,12 @@ WORKDIR /app
 ENV NODE_ENV production
 ARG PAYLOAD_SECRET
 ARG NEXT_PUBLIC_SERVER_URL
+ARG MONGODB_URI
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV MONGODB_URI=${MONGODB_URI}
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
