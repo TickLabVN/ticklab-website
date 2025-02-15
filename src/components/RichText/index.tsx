@@ -65,7 +65,7 @@ export default function RichText(props: Props) {
   const { className, enableProse = true, enableGutter = true, ...rest } = props
   return (
     <RichTextWithoutBlocks
-      converters={jsxConverters}
+      converters={jsxConverters as JSXConvertersFunction<DefaultNodeTypes>}
       className={cn(
         {
           'container ': enableGutter,
