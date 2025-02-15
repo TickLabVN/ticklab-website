@@ -17,15 +17,38 @@ type Props = {
 export const SliderSection: React.FC<Props> = ({ title, description, slides }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const sliderControls = useAnimation()
+  const animationRef = useRef<boolean>(false)
 
   useEffect(() => {
+    let isMounted = true
+    
     const animateSlider = async () => {
-      await sliderControls.start({ x: "-100%", transition: { duration: 20, ease: "linear" } })
-      sliderControls.set({ x: "0%" })
-      animateSlider()
+      if (!isMounted || animationRef.current) return
+
+      try {
+        animationRef.current = true
+        await sliderControls.start({ x: "-100%", transition: { duration: 20, ease: "linear" } })
+        
+        if (isMounted) {
+          sliderControls.set({ x: "0%" })
+          await new Promise(resolve => setTimeout(resolve, 0))
+          
+          if (isMounted) {
+            animateSlider()
+          }
+        }
+      } catch (error) {
+        console.error("Slider animation error:", error)
+      } finally {
+        animationRef.current = false
+      }
     }
 
     animateSlider()
+
+    return () => {
+      isMounted = false
+    }
   }, [sliderControls])
 
   return (

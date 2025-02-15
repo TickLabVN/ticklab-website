@@ -1,11 +1,7 @@
-// @ts-nocheck
 //This copy-and-pasted from lexical here: https://github.com/facebook/lexical/blob/c2ceee223f46543d12c574e62155e619f9a18a5d/packages/lexical/src/LexicalConstants.ts
 
-import type { ElementFormatType, TextFormatType } from '@payloadcms/richtext-lexical/lexical'
-import type {
-  TextDetailType,
-  TextModeType,
-} from '@payloadcms/richtext-lexical/lexical/nodes/LexicalTextNode'
+import type { ElementFormatType, TextFormatType, TextModeType } from '@payloadcms/richtext-lexical/lexical'
+// import { TextDetailType } from '@payloadcms/richtext-lexical/lexical/utils/nodeFormat'
 
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -92,6 +88,7 @@ export const TEXT_TYPE_TO_FORMAT: Record<TextFormatType | string, number> = {
   underline: IS_UNDERLINE,
 }
 
+type TextDetailType = 'directionless' | 'unmergeable'
 export const DETAIL_TYPE_TO_DETAIL: Record<TextDetailType | string, number> = {
   directionless: IS_DIRECTIONLESS,
   unmergeable: IS_UNMERGEABLE,
