@@ -17,8 +17,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
     outputs:
       APP_IMAGE: ${{ steps.set_image_name.outputs.APP_IMAGE }}
     steps:
@@ -44,6 +42,9 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.set_image_name.outputs.APP_IMAGE }}:latest
+          build-args: |
+            PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
+            NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }}
 
       - name: Build and push Docker image
         id: build_and_push
@@ -63,3 +64,4 @@ jobs:
             --build-arg PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }} \
             --build-arg NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }} .
           docker push --all-tags $APP_IMAGE
+
