@@ -45,7 +45,7 @@ jobs:
           build-args: |
             PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
             NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }}
-            MONGODB_URI=${{ secrets.MONGODB_URI }}
+            DATABASE_URI=${{ secrets.DATABASE_URI }}
 
       - name: Build and push Docker image
         id: build_and_push
@@ -64,6 +64,6 @@ jobs:
           docker build -t ${{ env.APP_IMAGE }}:$TAG_NAME \
             --build-arg PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }} \
             --build-arg NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }} \
-            --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} .
+            --build-arg DATABASE_URI=${{ secrets.DATABASE_URI }} .
           docker push --all-tags $APP_IMAGE
 
