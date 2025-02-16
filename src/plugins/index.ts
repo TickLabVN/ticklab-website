@@ -3,6 +3,7 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
@@ -15,7 +16,7 @@ import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | TickLab` : 'TickLab'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
@@ -46,6 +47,18 @@ export const plugins: Plugin[] = [
         afterChange: [revalidateRedirects],
       },
     },
+  }),
+  s3Storage({
+    collections: { media: true, pages: true, posts: true, categories: true, users: true },
+    bucket: process.env.MINIO_BUCKET,
+    config: {
+      credentials: {
+        accessKeyId: process.env.MINIO_ACCESS_KEY,
+        secretAccessKey: process.env.MINIO_SECRET_ACCESS_KEY,
+      },
+      endpoint: process.env.MINIO_ENDPOINT,
+    },
+    disableLocalStorage: true
   }),
   nestedDocsPlugin({
     collections: ['categories'],

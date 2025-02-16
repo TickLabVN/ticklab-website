@@ -6,3 +6,18 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
+
+  minio1:
+    image: quay.io/minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: ticklab
+      MINIO_ROOT_PASSWORD: changeme
+    volumes:
+      - minio:/data
+    command: server /data --console-address ":9001"
+
+volumes:
+  minio:
