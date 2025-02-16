@@ -2,8 +2,8 @@ import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { seoPlugin } from '@payloadcms/plugin-seo'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
@@ -49,7 +49,18 @@ export const plugins: Plugin[] = [
     },
   }),
   s3Storage({
-    collections: { media: true, pages: true, posts: true, categories: true, users: true },
+    collections: {
+      media: {
+        prefix: `ticklab-website/media`,
+        generateFileURL: (file) =>{
+          return `http://localhost:9000/ticklab-website/${file.filename}`
+        },
+      },
+      // pages: true,
+      // posts: true,
+      // categories: true,
+      // users: true
+    },
     bucket: process.env.MINIO_BUCKET,
     config: {
       credentials: {
