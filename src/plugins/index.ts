@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
@@ -10,7 +12,6 @@ import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
-
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
@@ -50,7 +51,7 @@ export const plugins: Plugin[] = [
     collections: {
       media: {
         prefix: 'media',
-        generateFileURL: (file) => `${process.env.MINIO_ENDPOINT}/${process.env.MINIO_BUCKET}/${file.prefix}/${file.filename}`,
+        generateFileURL: (file) => `${process.env.NEXT_PUBLIC_MINIO_HOSTNAME}/${process.env.MINIO_BUCKET}/${file.prefix}/${file.filename}`,
       },
       pages: true,
       posts: true,
@@ -64,7 +65,7 @@ export const plugins: Plugin[] = [
         accessKeyId: process.env.MINIO_ACCESS_KEY,
         secretAccessKey: process.env.MINIO_SECRET_ACCESS_KEY,
       },
-      endpoint: process.env.MINIO_ENDPOINT,
+      endpoint: process.env.NEXT_PUBLIC_MINIO_HOSTNAME,
     },
     disableLocalStorage: true
   }),

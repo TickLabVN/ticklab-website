@@ -47,25 +47,4 @@ jobs:
             PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
             NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }}
             DATABASE_URI=${{ secrets.DATABASE_URI }}
-
-      - name: Build and push Docker image
-        id: build_and_push
-        env:
-          APP_IMAGE: ${{ steps.set_image_name.outputs.APP_IMAGE }}
-        run: |
-          if [ ${{ github.ref_name }} == 'main' ]; then
-            TAG_NAME=latest
-          elif [ ${{ github.ref_name }} == 'staging' ]; then
-            TAG_NAME=beta
-          else
-            printf "Invalid branch name: ${{ github.ref_name }}"
-            exit 1
-          fi
-
-          docker build -t ${{ env.APP_IMAGE }}:$TAG_NAME \
-            --build-arg PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }} \
-            --build-arg NEXT_PUBLIC_SERVER_URL=${{ vars.NEXT_PUBLIC_SERVER_URL }} \
-            --build-arg NEXT_PUBLIC_MINIO_HOSTNAME=${{ vars.NEXT_PUBLIC_MINIO_HOSTNAME }} . \
-            --build-arg DATABASE_URI=${{ secrets.DATABASE_URI }} .
-          docker push --all-tags $APP_IMAGE
-
+            NEXT_PUBLIC_MINIO_HOSTNAME=${{ vars.NEXT_PUBLIC_MINIO_HOSTNAME }}

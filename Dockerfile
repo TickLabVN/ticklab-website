@@ -28,9 +28,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
+# Use ARG values to set ENV values
 ARG PAYLOAD_SECRET
 ARG NEXT_PUBLIC_SERVER_URL
 ARG DATABASE_URI
@@ -54,16 +52,19 @@ RUN \
 ### Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
-
+# Uncomment the following line in case you want to disable telemetry during runtime.
+ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
+
 ARG PAYLOAD_SECRET
 ARG NEXT_PUBLIC_SERVER_URL
 ARG DATABASE_URI
+ARG NEXT_PUBLIC_MINIO_HOSTNAME
+
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
-# Uncomment the following line in case you want to disable telemetry during runtime.
-ENV NEXT_TELEMETRY_DISABLED 1
 ENV DATABASE_URI=${DATABASE_URI}
+ENV NEXT_PUBLIC_MINIO_HOSTNAME=${NEXT_PUBLIC_MINIO_HOSTNAME}
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
