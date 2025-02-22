@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { getClientSideURL } from '@/utilities/getURL'
+import { getMediaAssetURL } from '@/utilities/getURL'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
@@ -10,7 +10,7 @@ export const CustomImpactHero: React.FC = () => {
     <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
       <div className="absolute inset-0 w-full h-full">
         <Image
-          src={`${getClientSideURL()}/media/ticklab-background.png`}
+          src={getMediaAssetURL("ticklab-background.png")}
           alt="Dashboard Background"
           fill
           className="object-cover"

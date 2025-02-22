@@ -3,6 +3,7 @@
 import type React from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { getMediaAssetURL } from "@/utilities/getURL"
 
 type Props = {
   visionTitle: string
@@ -109,7 +110,7 @@ export const MissionSection: React.FC<Props> = ({ visionTitle, visionContent, mi
             transition={{ duration: 0.6 }}
             className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden"
           >
-            <Image src="/media/vision.png" alt="Vision" fill className="object-cover brightness-100" />
+            <Image src={getMediaAssetURL("vision.png")} alt="Vision" fill className="object-cover brightness-100" />
             <div className="absolute inset-0">
               <div className="relative h-full flex items-center">
                 <Title text={visionTitle} className="absolute right-[32%] top-[15%] transform -rotate-6" />
@@ -166,7 +167,7 @@ export const MissionSection: React.FC<Props> = ({ visionTitle, visionContent, mi
             transition={{ duration: 0.6 }}
             className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden order-1 md:order-2"
           >
-            <Image src="/media/mission.png" alt="Mission" fill className="object-cover brightness-100" />
+            <Image src={getMediaAssetURL("mission.png")} alt="Mission" fill className="object-cover brightness-100" />
             <div className="absolute inset-0 flex items-center justify-center">
               <Title text={missionTitle} />
             </div>

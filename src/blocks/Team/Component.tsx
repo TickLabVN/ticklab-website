@@ -89,7 +89,8 @@ export const Team: React.FC<Props> = ({
                 {imageUrl ? (
                   <>
                     <Image
-                      src={imageUrl}
+                    // TODO: Replace placeholder.svg with the actual image
+                      src={"/placeholder.svg"}
                       alt={photo.caption || "Team photo"}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
