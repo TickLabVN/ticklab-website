@@ -1,4 +1,3 @@
-import path from 'path'
 import canUseDOM from './canUseDOM'
 
 export const getServerSideURL = () => {
@@ -31,7 +30,9 @@ export const getClientSideURL = () => {
   return process.env.NEXT_PUBLIC_SERVER_URL || ''
 }
 
+const MINIO_HOST = process.env.NEXT_PUBLIC_MINIO_HOSTNAME ?? 'https://minio.ticklab.site'
+
 export const getMediaAssetURL = (path: string) => {
   if (path.startsWith('/')) path = path.slice(1)
-  return `${process.env.NEXT_PUBLIC_MINIO_HOSTNAME}/ticklab-website/media/${path}`
+  return `${MINIO_HOST}/ticklab-website/media/${path}`
 }

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import React from 'react'
-import { getClientSideURL, getMediaAssetURL } from '@/utilities/getURL'
+import { getMediaAssetURL } from '@/utilities/getURL'
 
 interface Props {
   className?: string
