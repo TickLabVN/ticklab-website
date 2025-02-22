@@ -69,6 +69,7 @@ export const plugins: Plugin[] = [
         accessKeyId: process.env.MINIO_ACCESS_KEY,
         secretAccessKey: process.env.MINIO_SECRET_ACCESS_KEY,
       },
+      region: process.env.MINIO_REGION ?? 'us-east-1',
       endpoint: process.env.MINIO_ENDPOINT,
     },
     disableLocalStorage: true
