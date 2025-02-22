@@ -11,7 +11,7 @@ const nextConfig = {
   output: 'standalone',
   images: {
     remotePatterns: [
-      ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
+      ...[NEXT_PUBLIC_SERVER_URL, process.env.NEXT_PUBLIC_MINIO_HOSTNAME].map((item) => {
         const url = new URL(item)
 
         return {
