@@ -4,6 +4,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        PAYLOAD_SECRET: h1th3r3
+        NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+        NEXT_PUBLIC_MINIO_HOSTNAME: https://minio.ticklab.site
+
+    environment:
+      - MINIO_BUCKET=ticklab-website
+      - MINIO_ENDPOINT=https://minio.ticklab.site
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_ACCESS_KEY=${MINIO_SECRET_ACCESS_KEY}
     ports:
       - '3000:3000'
 
