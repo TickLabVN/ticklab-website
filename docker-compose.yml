@@ -9,6 +9,7 @@ services:
 
   minio1:
     image: quay.io/minio/minio
+    restart: always
     ports:
       - '9000:9000'
       - '9001:9001'

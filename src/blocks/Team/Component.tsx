@@ -15,7 +15,7 @@ type Props = {
   }[]
 }
 
-export const Team: React.FC<Props> = ({ 
+export const Team: React.FC<Props> = ({
   title = "OUR TEAMS",
   description = "Meet our passionate team members who drive innovation and excellence across different projects and initiatives.",
   photos = []
@@ -64,17 +64,15 @@ export const Team: React.FC<Props> = ({
           }}
         >
           {photos.map((photo, index) => {
-            const heightClass = getHeightClass(index)
             const imageUrl = typeof photo.image === 'string' ? photo.image : photo.image?.url
-            
             return (
               <motion.div
                 key={photo.id || index}
-                className={`relative rounded-2xl overflow-hidden ${heightClass} group`}
+                className={`relative rounded-2xl overflow-hidden h-[400px] group`}
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
-                  visible: { 
-                    opacity: 1, 
+                  visible: {
+                    opacity: 1,
                     scale: 1,
                     transition: {
                       type: "spring",
@@ -96,7 +94,7 @@ export const Team: React.FC<Props> = ({
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                    <motion.div 
+                    <motion.div
                       className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -119,21 +117,4 @@ export const Team: React.FC<Props> = ({
       </div>
     </section>
   )
-}
-
-const getHeightClass = (index: number): string => {
-  switch (index % 6) {
-    case 0:
-      return "h-[400px]"
-    case 1:
-    case 4:
-      return "h-[300px]"
-    case 2:
-    case 5:
-      return "h-[350px]"
-    case 3:
-      return "h-[450px]"
-    default:
-      return "h-[300px]"
-  }
 }

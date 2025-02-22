@@ -1,9 +1,8 @@
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { seoPlugin } from '@payloadcms/plugin-seo'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
@@ -21,7 +20,6 @@ const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
   const url = getServerSideURL()
-
   return doc?.slug ? `${url}/${doc.slug}` : url
 }
 
@@ -49,9 +47,19 @@ export const plugins: Plugin[] = [
     },
   }),
   s3Storage({
-    collections: { media: true, pages: true, posts: true, categories: true, users: true },
+    collections: {
+      media: {
+        prefix: 'media',
+        generateFileURL: (file) => `${process.env.MINIO_ENDPOINT}/${process.env.MINIO_BUCKET}/${file.prefix}/${file.filename}`,
+      },
+      pages: true,
+      posts: true,
+      categories: true,
+      users: true
+    },
     bucket: process.env.MINIO_BUCKET,
     config: {
+      forcePathStyle: true,
       credentials: {
         accessKeyId: process.env.MINIO_ACCESS_KEY,
         secretAccessKey: process.env.MINIO_SECRET_ACCESS_KEY,
@@ -103,5 +111,4 @@ export const plugins: Plugin[] = [
       },
     },
   }),
-  payloadCloudPlugin(),
 ]

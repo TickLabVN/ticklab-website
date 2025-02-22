@@ -33,7 +33,7 @@ export const Blog: React.FC<Props> = ({ title, description, posts = [] }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, amount: 0.2 })
 
-  const MotionButton = motion(Button)
+  const MotionButton = motion.create(Button)
 
   return (
     <section className="relative w-full py-8 overflow-hidden bg-white">
