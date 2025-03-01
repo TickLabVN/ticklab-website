@@ -11,12 +11,12 @@ type Props = {
   req: PayloadRequest
 }
 
-export const generatePreviewPath = ({ collection, slug, req }: Props) => {
-  const path = `${collectionPrefixMap[collection]}/${slug}`
-  const params = { slug, collection, path }
-  const encodedParams = new URLSearchParams()
-  Object.entries(params).forEach(([key, value]) => {
-    encodedParams.append(key, value)
+export const generatePreviewPath = ({ collection, slug }: Props) => {
+  const encodedParams = new URLSearchParams({
+    slug,
+    collection,
+    path: `${collectionPrefixMap[collection]}/${slug}`,
+    previewSecret: process.env.PREVIEW_SECRET || '',
   })
   return `${process.env.NEXT_PUBLIC_SERVER_URL}/next/preview?${encodedParams.toString()}`
 }
