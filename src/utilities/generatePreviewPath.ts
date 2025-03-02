@@ -18,5 +18,11 @@ export const generatePreviewPath = ({ collection, slug }: Props) => {
     path: `${collectionPrefixMap[collection]}/${slug}`,
     previewSecret: process.env.PREVIEW_SECRET || '',
   })
-  return `${process.env.NEXT_PUBLIC_SERVER_URL}/next/preview?${encodedParams.toString()}`
+  
+  // Ensure we have a valid base URL with proper formatting
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || ''
+  // Make sure the URL doesn't end with a slash before adding the path
+  const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl
+  
+  return `${normalizedBaseUrl}/next/preview?${encodedParams.toString()}`
 }

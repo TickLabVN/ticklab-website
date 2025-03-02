@@ -1,0 +1,262 @@
+/* Custom styles for Payload CMS admin interface with dark theme */
+
+/* Global styles */
+:root {
+  --theme-elevation-0: #000000;
+  --theme-elevation-50: #111111;
+  --theme-elevation-100: #1a1a1a;
+  --theme-elevation-150: #222222;
+  --theme-elevation-200: #242424;
+  --theme-elevation-300: #2a2a2a;
+  --theme-elevation-400: #333333;
+  --theme-elevation-500: #3d3d3d;
+  --theme-elevation-600: #484848;
+  --theme-success-50: #152c20;
+  --theme-success-100: #1c3b2c;
+  --theme-success-500: #35b982;
+  --theme-success-600: #459a7a;
+  --theme-success-700: #35765c;
+  --theme-error-50: #310f0f;
+  --theme-error-500: #e53e3e;
+  --theme-error-600: #c53030;
+  --theme-error-700: #9b2c2c;
+  --theme-text-base: #ffffff;
+  --theme-text-muted: #a0a0a0;
+  --theme-input-border: #333333;
+}
+
+/* Main app container improvements */
+[class*="app_app"] {
+  background-color: var(--theme-elevation-0);
+  color: var(--theme-text-base);
+}
+
+/* Improve main layout spacing */
+[class*="elements_container"] {
+  max-width: 1440px;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+}
+
+/* Instead of hiding elements by default, we'll let the JavaScript handle it */
+/* This prevents accidentally hiding important UI elements */
+
+/* Make our custom component appear in the right place */
+.payload-notion-import {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* Special handling for collection list buttons positioning */
+[class*="collection-list_collectionList"] > .actions {
+  margin-bottom: 1.5rem;
+}
+
+/* Enhance buttons */
+button {
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+[class*="btn_"] {
+  border-radius: 6px !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+[class*="btn_primary"] {
+  background-color: var(--theme-success-500) !important;
+  border-color: var(--theme-success-500) !important;
+}
+
+[class*="btn_primary"]:hover {
+  background-color: var(--theme-success-600) !important;
+  border-color: var(--theme-success-600) !important;
+}
+
+/* Tables improvements */
+[class*="table_table"] {
+  background: var(--theme-elevation-100);
+  border-radius: 10px;
+  overflow: hidden;
+  border-color: var(--theme-elevation-300);
+}
+
+[class*="table_header"] {
+  background-color: var(--theme-elevation-200);
+  color: var(--theme-text-base);
+}
+
+[class*="table_row"] {
+  border-bottom-color: var(--theme-elevation-300);
+}
+
+[class*="table_row"]:hover {
+  background-color: var(--theme-elevation-200);
+}
+
+/* Card style improvements */
+[class*="card_card"] {
+  border-radius: 10px;
+  border-color: var(--theme-elevation-300);
+  background-color: var(--theme-elevation-100);
+}
+
+[class*="card_header"] {
+  background-color: var(--theme-elevation-200);
+  border-bottom-color: var(--theme-elevation-300);
+  color: var(--theme-text-base);
+}
+
+/* Search input improvements */
+[class*="search-bar_searchBar"] input {
+  border-radius: 6px;
+  border-color: var(--theme-elevation-400) !important;
+  background-color: var(--theme-elevation-200) !important;
+  color: var(--theme-text-base) !important;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+[class*="search-bar_searchBar"] input::placeholder {
+  color: var(--theme-text-muted);
+}
+
+[class*="search-bar_searchBar"] input:focus {
+  border-color: var(--theme-success-500) !important;
+  box-shadow: 0 0 0 3px var(--theme-success-50);
+}
+
+/* Custom styling for "No posts found" message */
+[class*="collection-list_noResults"] {
+  background-color: var(--theme-elevation-100);
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--theme-elevation-300);
+  margin: 2rem 0;
+}
+
+[class*="collection-list_noResults"] h2 {
+  font-size: 1.25rem;
+  color: var(--theme-text-base);
+  margin-bottom: 1rem;
+}
+
+[class*="collection-list_noResults"] p {
+  color: var(--theme-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Improve action buttons (like Create New) */
+a[href$="/create"] {
+  background-color: var(--theme-success-500) !important;
+  border-color: var(--theme-success-500) !important;
+  color: white !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+a[href$="/create"]:hover {
+  background-color: var(--theme-success-600) !important;
+  border-color: var(--theme-success-600) !important;
+}
+
+/* Improve form elements */
+[class*="field-type_fieldType"] input,
+[class*="field-type_fieldType"] textarea,
+[class*="field-type_fieldType"] select {
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  border-color: var(--theme-input-border);
+  background-color: var(--theme-elevation-200) !important;
+  color: var(--theme-text-base) !important;
+  transition: all 0.2s ease;
+}
+
+[class*="field-type_fieldType"] input:focus,
+[class*="field-type_fieldType"] textarea:focus,
+[class*="field-type_fieldType"] select:focus {
+  border-color: var(--theme-success-500);
+  box-shadow: 0 0 0 3px var(--theme-success-50);
+}
+
+/* Improve the collection navigation */
+[class*="collection-edit_collectionEdit"] h1,
+[class*="collection-list_collectionList"] h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--theme-text-base);
+}
+
+/* Enhance navigation tabs */
+[class*="tabs_tabs"] {
+  border-radius: 6px;
+  overflow: hidden;
+  border-color: var(--theme-elevation-300);
+  background-color: var(--theme-elevation-100);
+}
+
+[class*="tabs_tab"] {
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  color: var(--theme-text-muted);
+}
+
+[class*="tabs_tab-active"] {
+  background-color: var(--theme-elevation-200);
+  border-bottom-color: var(--theme-success-500);
+  color: var(--theme-success-500);
+}
+
+/* Fix dropdown backgrounds */
+[class*="popup_popup"] {
+  background-color: var(--theme-elevation-200) !important;
+  border-color: var(--theme-elevation-300) !important;
+  color: var(--theme-text-base) !important;
+}
+
+[class*="popup_action"] {
+  color: var(--theme-text-base) !important;
+}
+
+[class*="popup_action"]:hover {
+  background-color: var(--theme-elevation-300) !important;
+}
+
+/* Fix pagination */
+[class*="paginator_paginator"] button {
+  background-color: var(--theme-elevation-200) !important;
+  border-color: var(--theme-elevation-300) !important;
+  color: var(--theme-text-base) !important;
+}
+
+[class*="paginator_paginator"] button:hover {
+  background-color: var(--theme-elevation-300) !important;
+}
+
+[class*="paginator_active"] {
+  background-color: var(--theme-success-500) !important;
+  color: white !important;
+}
+
+/* Improve navbar */
+[class*="nav_nav"] {
+  background-color: var(--theme-elevation-100) !important;
+  border-color: var(--theme-elevation-300) !important;
+}
+
+[class*="nav_navItems"] a {
+  color: var(--theme-text-base) !important;
+}
+
+[class*="nav_navItems"] a:hover {
+  background-color: var(--theme-elevation-200) !important;
+}

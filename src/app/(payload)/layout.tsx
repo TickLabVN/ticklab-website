@@ -8,6 +8,7 @@ import React from 'react'
 
 import { importMap } from './admin/importMap.js'
 import './custom.scss'
+import ClientFormLoader from '@/components/ClientFormLoader'
 
 type Args = {
   children: React.ReactNode
@@ -24,6 +25,7 @@ const serverFunction: ServerFunctionClient = async function (args) {
 
 const Layout = ({ children }: Args) => (
   <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
+    <ClientFormLoader />
     {children}
   </RootLayout>
 )

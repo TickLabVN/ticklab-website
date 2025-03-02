@@ -67,6 +67,11 @@ export const Posts: CollectionConfig<'posts'> = {
         req,
       }),
     useAsTitle: 'title',
+    components: {
+      // Use afterListTable instead of beforeList to position it after the posts table
+      // instead of at the top of the page
+      afterListTable: ['@/components/NotionImport#default'],
+    },
   },
   fields: [
     {
