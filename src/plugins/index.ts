@@ -25,6 +25,15 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
 }
 
 const MINIO_BUCKET = process.env.MINIO_BUCKET ?? 'ticklab-website'
+const generateFileURL = (file: { prefix?: string; filename: string }) => `${process.env.NEXT_PUBLIC_MINIO_HOSTNAME}/${MINIO_BUCKET}/${file.prefix}/${file.filename}`
+
+// const s3Options: S3StorageOptions['collections'] = {
+//   media: { prefix: 'media', generateFileURL },
+//   pages: { prefix: 'pages', generateFileURL },
+//   posts: { prefix: 'posts', generateFileURL },
+//   categories: { prefix: 'categories', generateFileURL },
+//   users: { prefix: 'users', generateFileURL }
+// }
 
 export const plugins: Plugin[] = [
   redirectsPlugin({
