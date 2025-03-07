@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayloadClient } from '../../../../utilities/getPayload';
-import formidable from 'formidable';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { convertMarkdownToLexical, processImageReferences } from '../../../../endpoints/notion-import/markdownToLexical';
-import { Readable } from 'stream';
 
 // Disable body parsing, we'll handle it ourselves with formidable
 export const config = {
@@ -19,52 +15,32 @@ export async function POST(req: NextRequest) {
     // Get the payload client
     const payload = await getPayloadClient();
 
-    // Create a temporary directory for file uploads if it doesn't exist
-    const tempDir = path.join(process.cwd(), 'temp');
-    try {
-      await fs.mkdir(tempDir, { recursive: true });
-    } catch (error) {
-      console.error('Error creating temp directory:', error);
-    }
-
-    // Parse the form data using formidable
-    const form = formidable({
-      multiples: true,
-      uploadDir: tempDir,
-      keepExtensions: true,
-      allowEmptyFiles: false,
-    });
-
-    // Convert the NextRequest to a format that formidable can process
-    // Create a readable stream from the request body
+    // Parse the form data
     const formData = await req.formData();
     
     // Process the FormData
-    const files: { markdown?: any, images?: any[] } = {};
+    const files: { markdown?: { buffer: Buffer, name: string, type: string, size: number }, images?: Array<{ buffer: Buffer, name: string, type: string, size: number }> } = {};
     
     // Extract files from FormData
     for (const [name, value] of formData.entries()) {
       if (value instanceof File) {
-        // Create a temporary file path
-        const filePath = path.join(tempDir, value.name);
-        // Write the file to disk
+        // Convert file to buffer
         const buffer = Buffer.from(await value.arrayBuffer());
-        await fs.writeFile(filePath, buffer);
         
         // Store the file info
         if (name === 'markdown') {
           files.markdown = {
-            filepath: filePath,
-            originalFilename: value.name,
-            mimetype: value.type,
+            buffer,
+            name: value.name,
+            type: value.type,
             size: value.size
           };
         } else if (name === 'images') {
           if (!files.images) files.images = [];
           files.images.push({
-            filepath: filePath,
-            originalFilename: value.name,
-            mimetype: value.type,
+            buffer,
+            name: value.name,
+            type: value.type,
             size: value.size
           });
         }
@@ -76,9 +52,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No Markdown file uploaded' }, { status: 400 });
     }
 
-    // Read the markdown file
-    const markdownFile = files.markdown;
-    const markdownContent = await fs.readFile(markdownFile.filepath, 'utf-8');
+    // Read the markdown content from buffer
+    const markdownContent = files.markdown.buffer.toString('utf-8');
 
     // Process any images that were uploaded
     let uploadedImages = [];
@@ -91,23 +66,6 @@ export async function POST(req: NextRequest) {
 
     // Convert the processed markdown to Lexical format
     const lexicalContent = await convertMarkdownToLexical(processedMarkdown);
-
-    // Clean up temporary files
-    try {
-      if (markdownFile && markdownFile.filepath) {
-        await fs.unlink(markdownFile.filepath);
-      }
-      
-      if (files.images && files.images.length > 0) {
-        for (const file of files.images) {
-          if (file.filepath) {
-            await fs.unlink(file.filepath);
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error cleaning up temporary files:', error);
-    }
 
     // Return the lexical content
     return NextResponse.json({
@@ -126,26 +84,23 @@ export async function POST(req: NextRequest) {
 }
 
 // Function to process uploaded images
-async function processImages(imageFiles: any[], payload: any) {
+async function processImages(imageFiles: Array<{ buffer: Buffer, name: string, type: string, size: number }>, payload: any) {
   const uploadedImages = [];
 
   for (const imageFile of imageFiles) {
     try {
-      // Read the file content into a buffer
-      const fileBuffer = await fs.readFile(imageFile.filepath);
-      
-      // Create a media item in Payload CMS
+      // Create a media item in Payload CMS with S3 storage
       const media = await payload.create({
         collection: 'media',
         data: {
-          alt: imageFile.originalFilename || 'Imported from Notion',
+          alt: imageFile.name || 'Imported from Notion',
+          fileType: 'image',
         },
-        // For S3 storage, we need to provide the file data in a specific format
         file: {
-          data: fileBuffer, // The file buffer
+          data: imageFile.buffer,
           size: imageFile.size,
-          name: imageFile.originalFilename,
-          mimetype: imageFile.mimetype,
+          name: imageFile.name,
+          mimetype: imageFile.type,
         },
       });
 

@@ -1,0 +1,816 @@
+{
+    "id": "67c33b116967fdcb23145529",
+    "title": "Dollar and Sense: The Financial Forecast",
+    
+    "heroImage": {
+    "id": "67c33b116967fdcb2314550d",
+    "alt": "Curving abstract shapes with an orange and blue gradient",
+    
+    "caption": {
+    
+    "root": {
+    "type": "root",
+    
+    "children": [
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Photo by ",
+    "version": 1
+    },
+    
+    {
+    "type": "link",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Andrew Kliatskyi",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    
+    "fields": {
+    "linkType": "custom",
+    "newTab": true,
+    "url": "https://unsplash.com/@kirp"
+    },
+    "format": "",
+    "indent": 0,
+    "version": 2
+    },
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": " on Unsplash.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 0,
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "version": 1
+    }
+    },
+    "filename": "image-post3.webp",
+    "mimeType": "image/webp",
+    "filesize": 14662,
+    "width": 1920,
+    "height": 1080,
+    "focalX": 50,
+    "focalY": 50,
+    
+    "sizes": {
+    
+    "thumbnail": {
+    "width": 300,
+    "height": 169,
+    "mimeType": "image/webp",
+    "filesize": 1234,
+    "filename": "image-post3-300x169.webp",
+    "url": "/api/media/file/image-post3-300x169.webp"
+    },
+    
+    "square": {
+    "width": 500,
+    "height": 500,
+    "mimeType": "image/webp",
+    "filesize": 2668,
+    "filename": "image-post3-500x500.webp",
+    "url": "/api/media/file/image-post3-500x500.webp"
+    },
+    
+    "small": {
+    "width": 600,
+    "height": 338,
+    "mimeType": "image/webp",
+    "filesize": 3012,
+    "filename": "image-post3-600x338.webp",
+    "url": "/api/media/file/image-post3-600x338.webp"
+    },
+    
+    "medium": {
+    "width": 900,
+    "height": 506,
+    "mimeType": "image/webp",
+    "filesize": 4988,
+    "filename": "image-post3-900x506.webp",
+    "url": "/api/media/file/image-post3-900x506.webp"
+    },
+    
+    "large": {
+    "width": 1400,
+    "height": 788,
+    "mimeType": "image/webp",
+    "filesize": 8998,
+    "filename": "image-post3-1400x788.webp",
+    "url": "/api/media/file/image-post3-1400x788.webp"
+    },
+    
+    "xlarge": {
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "image/webp",
+    "filesize": 14662,
+    "filename": "image-post3-1920x1080.webp",
+    "url": "/api/media/file/image-post3-1920x1080.webp"
+    },
+    
+    "og": {
+    "width": 1200,
+    "height": 630,
+    "mimeType": "image/webp",
+    "filesize": 6820,
+    "filename": "image-post3-1200x630.webp",
+    "url": "/api/media/file/image-post3-1200x630.webp"
+    }
+    },
+    "createdAt": "2025-03-01T16:51:29.227Z",
+    "updatedAt": "2025-03-01T16:51:29.227Z",
+    "url": "/api/media/file/image-post3.webp",
+    "thumbnailURL": "/api/media/file/image-post3-300x169.webp"
+    },
+    
+    "content": {
+    
+    "root": {
+    "type": "root",
+    
+    "children": [
+    
+    {
+    "type": "block",
+    
+    "fields": {
+    "blockName": "Disclaimer",
+    "blockType": "banner",
+    
+    "content": {
+    
+    "root": {
+    "type": "root",
+    
+    "children": [
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 1,
+    "mode": "normal",
+    "style": "",
+    "text": "Disclaimer: ",
+    "version": 1
+    },
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "This content is fabricated and for demonstration purposes only. To edit this post, ",
+    "version": 1
+    },
+    
+    {
+    "type": "link",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "navigate to the admin dashboard.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    
+    "fields": {
+    "linkType": "custom",
+    "newTab": true,
+    "url": "/admin"
+    },
+    "format": "",
+    "indent": 0,
+    "version": 3
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 1,
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "version": 1
+    }
+    },
+    "style": "info",
+    "id": "67c33b12320aec0027b00dff"
+    },
+    "format": "",
+    "version": 2
+    },
+    
+    {
+    "type": "heading",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Money isn't just currency; ",
+    "version": 1
+    },
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 2,
+    "mode": "normal",
+    "style": "",
+    "text": "it's a language. ",
+    "version": 1
+    },
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Dive deep into its nuances, where strategy meets intuition in the vast sea of finance.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "tag": "h2",
+    "version": 1
+    },
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Money, in its essence, transcends the mere concept of coins and paper notes; it becomes a profound language that speaks of value, trust, and societal structures. Like any language, it possesses intricate nuances and subtleties that require a discerning understanding. It's in these depths where the calculated world of financial strategy collides with the raw, instinctive nature of human intuition. Just as a seasoned linguist might dissect the syntax and semantics of a sentence, a financial expert navigates the vast and tumultuous ocean of finance, guided not only by logic and data but also by gut feelings and foresight. Every transaction, investment, and financial decision becomes a dialogue in this expansive lexicon of commerce and value.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 0,
+    "version": 1
+    },
+    
+    {
+    "type": "block",
+    
+    "fields": {
+    "blockName": "",
+    "blockType": "mediaBlock",
+    
+    "media": {
+    "id": "67c33b116967fdcb2314550f",
+    "alt": "Curving abstract shapes with an orange and blue gradient",
+    
+    "caption": {
+    
+    "root": {
+    "type": "root",
+    
+    "children": [
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Photo by ",
+    "version": 1
+    },
+    
+    {
+    "type": "link",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Andrew Kliatskyi",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    
+    "fields": {
+    "linkType": "custom",
+    "newTab": true,
+    "url": "https://unsplash.com/@kirp"
+    },
+    "format": "",
+    "indent": 0,
+    "version": 2
+    },
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": " on Unsplash.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 0,
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "version": 1
+    }
+    },
+    "filename": "image-post1.webp",
+    "mimeType": "image/webp",
+    "filesize": 15924,
+    "width": 1920,
+    "height": 1080,
+    "focalX": 50,
+    "focalY": 50,
+    
+    "sizes": {
+    
+    "thumbnail": {
+    "width": 300,
+    "height": 169,
+    "mimeType": "image/webp",
+    "filesize": 1506,
+    "filename": "image-post1-300x169.webp",
+    "url": "/api/media/file/image-post1-300x169.webp"
+    },
+    
+    "square": {
+    "width": 500,
+    "height": 500,
+    "mimeType": "image/webp",
+    "filesize": 3718,
+    "filename": "image-post1-500x500.webp",
+    "url": "/api/media/file/image-post1-500x500.webp"
+    },
+    
+    "small": {
+    "width": 600,
+    "height": 338,
+    "mimeType": "image/webp",
+    "filesize": 3506,
+    "filename": "image-post1-600x338.webp",
+    "url": "/api/media/file/image-post1-600x338.webp"
+    },
+    
+    "medium": {
+    "width": 900,
+    "height": 506,
+    "mimeType": "image/webp",
+    "filesize": 5718,
+    "filename": "image-post1-900x506.webp",
+    "url": "/api/media/file/image-post1-900x506.webp"
+    },
+    
+    "large": {
+    "width": 1400,
+    "height": 788,
+    "mimeType": "image/webp",
+    "filesize": 9810,
+    "filename": "image-post1-1400x788.webp",
+    "url": "/api/media/file/image-post1-1400x788.webp"
+    },
+    
+    "xlarge": {
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "image/webp",
+    "filesize": 15924,
+    "filename": "image-post1-1920x1080.webp",
+    "url": "/api/media/file/image-post1-1920x1080.webp"
+    },
+    
+    "og": {
+    "width": 1200,
+    "height": 630,
+    "mimeType": "image/webp",
+    "filesize": 7798,
+    "filename": "image-post1-1200x630.webp",
+    "url": "/api/media/file/image-post1-1200x630.webp"
+    }
+    },
+    "createdAt": "2025-03-01T16:51:29.247Z",
+    "updatedAt": "2025-03-01T16:51:29.247Z",
+    "url": "/api/media/file/image-post1.webp",
+    "thumbnailURL": "/api/media/file/image-post1-300x169.webp"
+    },
+    "id": "67c33b12320aec0027b00e00"
+    },
+    "format": "",
+    "version": 2
+    },
+    
+    {
+    "type": "heading",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Stock Market Dynamics: Bulls, Bears, and the Uncertain Middle",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "tag": "h2",
+    "version": 1
+    },
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "The stock market is a realm of vast opportunity but also poses risks. Discover the forces that drive market trends and the strategies employed by top traders to navigate this complex ecosystem. From market analysis to understanding investor psychology, get a comprehensive insight into the world of stocks.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 0,
+    "version": 1
+    },
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "The stock market, often visualized as a bustling arena of numbers and ticker tapes, is as much about human behavior as it is about economics. It's a place where optimism, represented by the bullish rally, meets the caution of bearish downturns, with each vying to dictate the market's direction. But between these two extremes lies an uncertain middle ground, a zone populated by traders and investors who constantly weigh hope against fear. Successful navigation requires more than just financial acumen; it demands an understanding of collective sentiments and the ability to predict not just market movements, but also the reactions of other market participants. In this intricate dance of numbers and nerves, the most astute players are those who master both the hard data and the soft nuances of human behavior.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 0,
+    "version": 1
+    },
+    
+    {
+    "type": "block",
+    
+    "fields": {
+    "blockName": "Dynamic components",
+    "blockType": "banner",
+    
+    "content": {
+    
+    "root": {
+    "type": "root",
+    
+    "children": [
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "This content above is completely dynamic using custom layout building blocks configured in the CMS. This can be anything you'd like from rich text and images, to highly designed, complex components.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 0,
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "version": 1
+    }
+    },
+    "style": "info",
+    "id": "67c33b12320aec0027b00e01"
+    },
+    "format": "",
+    "version": 2
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "version": 1
+    }
+    },
+    
+    "relatedPosts": [
+    
+    {
+    "id": "67c33b116967fdcb23145515",
+    "title": "Digital Horizons: A Glimpse into Tomorrow",
+    
+    "meta": {
+    "image": "67c33b116967fdcb2314550f",
+    "description": "Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future."
+    },
+    "slug": "digital-horizons-a-glimpse-into-tomorrow"
+    },
+    
+    {
+    "id": "67c33b116967fdcb2314551f",
+    "title": "Global Gaze: Beyond the Headlines",
+    
+    "meta": {
+    "image": "67c33b116967fdcb23145513",
+    "description": "Explore the untold and overlooked. A magnified view into the corners of the world, where every story deserves its spotlight."
+    },
+    "slug": "global-gaze-beyond-the-headlines"
+    }
+    ],
+    
+    "meta": {
+    "title": "Dollar and Sense: The Financial Forecast",
+    
+    "image": {
+    "id": "67c33b116967fdcb2314550d",
+    "alt": "Curving abstract shapes with an orange and blue gradient",
+    
+    "caption": {
+    
+    "root": {
+    "type": "root",
+    
+    "children": [
+    
+    {
+    "type": "paragraph",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Photo by ",
+    "version": 1
+    },
+    
+    {
+    "type": "link",
+    
+    "children": [
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": "Andrew Kliatskyi",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    
+    "fields": {
+    "linkType": "custom",
+    "newTab": true,
+    "url": "https://unsplash.com/@kirp"
+    },
+    "format": "",
+    "indent": 0,
+    "version": 2
+    },
+    
+    {
+    "type": "text",
+    "detail": 0,
+    "format": 0,
+    "mode": "normal",
+    "style": "",
+    "text": " on Unsplash.",
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "textFormat": 0,
+    "version": 1
+    }
+    ],
+    "direction": "ltr",
+    "format": "",
+    "indent": 0,
+    "version": 1
+    }
+    },
+    "filename": "image-post3.webp",
+    "mimeType": "image/webp",
+    "filesize": 14662,
+    "width": 1920,
+    "height": 1080,
+    "focalX": 50,
+    "focalY": 50,
+    
+    "sizes": {
+    
+    "thumbnail": {
+    "width": 300,
+    "height": 169,
+    "mimeType": "image/webp",
+    "filesize": 1234,
+    "filename": "image-post3-300x169.webp",
+    "url": "/api/media/file/image-post3-300x169.webp"
+    },
+    
+    "square": {
+    "width": 500,
+    "height": 500,
+    "mimeType": "image/webp",
+    "filesize": 2668,
+    "filename": "image-post3-500x500.webp",
+    "url": "/api/media/file/image-post3-500x500.webp"
+    },
+    
+    "small": {
+    "width": 600,
+    "height": 338,
+    "mimeType": "image/webp",
+    "filesize": 3012,
+    "filename": "image-post3-600x338.webp",
+    "url": "/api/media/file/image-post3-600x338.webp"
+    },
+    
+    "medium": {
+    "width": 900,
+    "height": 506,
+    "mimeType": "image/webp",
+    "filesize": 4988,
+    "filename": "image-post3-900x506.webp",
+    "url": "/api/media/file/image-post3-900x506.webp"
+    },
+    
+    "large": {
+    "width": 1400,
+    "height": 788,
+    "mimeType": "image/webp",
+    "filesize": 8998,
+    "filename": "image-post3-1400x788.webp",
+    "url": "/api/media/file/image-post3-1400x788.webp"
+    },
+    
+    "xlarge": {
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "image/webp",
+    "filesize": 14662,
+    "filename": "image-post3-1920x1080.webp",
+    "url": "/api/media/file/image-post3-1920x1080.webp"
+    },
+    
+    "og": {
+    "width": 1200,
+    "height": 630,
+    "mimeType": "image/webp",
+    "filesize": 6820,
+    "filename": "image-post3-1200x630.webp",
+    "url": "/api/media/file/image-post3-1200x630.webp"
+    }
+    },
+    "createdAt": "2025-03-01T16:51:29.227Z",
+    "updatedAt": "2025-03-01T16:51:29.227Z",
+    "url": "/api/media/file/image-post3.webp",
+    "thumbnailURL": "/api/media/file/image-post3-300x169.webp"
+    },
+    "description": "Money isn't just currency; it's a language. Dive deep into its nuances, where strategy meets intuition in the vast sea of finance."
+    },
+    "publishedAt": "2025-03-01T16:51:29.744Z",
+    
+    "authors": [
+    
+    {
+    "id": "67c33b036967fdcb2314550a",
+    "name": "Demo Author",
+    "email": "demo-author@example.com",
+    "createdAt": "2025-03-01T16:51:15.411Z",
+    "updatedAt": "2025-03-01T16:51:15.411Z",
+    "loginAttempts": 0
+    }
+    ],
+    "slug": "dollar-and-sense-the-financial-forecast",
+    "slugLock": true,
+    "_status": "published",
+    "createdAt": "2025-03-01T16:51:29.745Z",
+    "updatedAt": "2025-03-01T16:51:30.320Z",
+    
+    "populatedAuthors": [
+    
+    {
+    "id": "67c33b036967fdcb2314550a",
+    "name": "Demo Author"
+    }
+    ]
+    }

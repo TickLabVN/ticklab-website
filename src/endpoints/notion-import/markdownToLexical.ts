@@ -175,6 +175,20 @@ export async function convertMarkdownToLexical(markdown: string): Promise<Lexica
     // Parse the markdown content
     const processor = unified()
         .use(remarkParse) // Parse markdown to mdast
+        .use(() => (tree) => {
+            // Process the markdown AST
+            visit(tree, (node: any) => {
+                if (node.type === 'image') {
+                    // Convert image nodes to Lexical image blocks
+                    node.type = 'paragraph';
+                    node.children = [{
+                        type: 'text',
+                        value: `![${node.alt || ''}](${node.url})`,
+                    }];
+                }
+            });
+            return tree;
+        })
         .use(remarkRehype) // Convert mdast to hast
         .use(rehypeStringify); // Convert hast to HTML string
 
@@ -193,37 +207,142 @@ export async function convertMarkdownToLexical(markdown: string): Promise<Lexica
         },
     };
 
-    // For now, we'll implement a simple conversion that handles basic elements
-    // In a real implementation, you would need to properly parse the HTML
-    // and create the appropriate Lexical nodes
-
     // Split the markdown by lines to process it
     const lines = markdown.split('\n');
     let currentIndex = 0;
+    let inCodeBlock = false;
+    let codeBlockLanguage = '';
+    let codeBlockContent: string[] = [];
+    let inQuoteBlock = false;
+    let quoteContent: string[] = [];
+    let inList = false;
+    let listType: 'bullet' | 'number' | 'check' = 'bullet';
+    let listItems: string[] = [];
 
     while (currentIndex < lines.length) {
         const line = lines[currentIndex]?.trim() ?? '';
 
-        // Handle headings
-        if (line.startsWith('#')) {
-            const headingMatch = line.match(/^#+/);
-            const headingLevel = headingMatch ? headingMatch[0].length : 0;
-            if (headingLevel <= 6) {
-                const headingText = line.replace(/^#+\s+/, '');
-                const tag = `h${headingLevel}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+        // Handle code blocks
+        if (line.startsWith('```')) {
+            if (!inCodeBlock) {
+                inCodeBlock = true;
+                codeBlockLanguage = line.slice(3).trim();
+                codeBlockContent = [];
+            } else {
+                // End of code block
+                inCodeBlock = false;
                 lexicalContent.root.children.push(
-                    createHeadingNode(tag, [createTextNode(headingText)])
+                    createCodeBlockNode(
+                        [createTextNode(codeBlockContent.join('\n'))],
+                        codeBlockLanguage
+                    )
                 );
+                codeBlockContent = [];
             }
         }
-        // Handle paragraphs
-        else if (line !== '') {
+        // Inside code block
+        else if (inCodeBlock) {
+            codeBlockContent.push(line);
+        }
+        // Handle blockquotes
+        else if (line.startsWith('>')) {
+            if (!inQuoteBlock) {
+                inQuoteBlock = true;
+            }
+            quoteContent.push(line.slice(1).trim());
+        }
+        // End of blockquote
+        else if (inQuoteBlock && line === '') {
+            inQuoteBlock = false;
             lexicalContent.root.children.push(
-                createParagraphNode([createTextNode(line)])
+                createQuoteNode([
+                    createParagraphNode([createTextNode(quoteContent.join('\n'))])
+                ])
+            );
+            quoteContent = [];
+        }
+        // Handle lists
+        else if (line.match(/^[*+-]\s/) || line.match(/^\d+\.\s/) || line.match(/^- \[[ x]\]\s/)) {
+            if (!inList) {
+                inList = true;
+                // Determine list type
+                if (line.match(/^\d+\.\s/)) {
+                    listType = 'number';
+                } else if (line.match(/^- \[[ x]\]\s/)) {
+                    listType = 'check';
+                } else {
+                    listType = 'bullet';
+                }
+            }
+            
+            // Process list item
+            let itemText = line;
+            if (listType === 'bullet') {
+                itemText = line.replace(/^[*+-]\s/, '');
+            } else if (listType === 'number') {
+                itemText = line.replace(/^\d+\.\s/, '');
+            } else {
+                itemText = line.replace(/^- \[[ x]\]\s/, '');
+            }
+            listItems.push(itemText);
+        }
+        // End of list
+        else if (inList && line === '') {
+            inList = false;
+            const items = listItems.map(text => 
+                createListItemNode(
+                    [createParagraphNode([createTextNode(text)])],
+                    listType === 'number' ? 1 : undefined,
+                    listType === 'check' ? false : undefined
+                )
+            );
+            lexicalContent.root.children.push(createListNode(listType, items));
+            listItems = [];
+        }
+        // Handle headings
+        else if (line.startsWith('#')) {
+            const headingMatch = line.match(/^(#+)\s+(.+)$/);
+            if (headingMatch && headingMatch[1] && headingMatch[2]) {
+                const level = headingMatch[1].length;
+                const text = headingMatch[2];
+                if (level <= 6) {
+                    const tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+                    lexicalContent.root.children.push(
+                        createHeadingNode(tag, [createTextNode(text)])
+                    );
+                }
+            }
+        }
+        // Handle paragraphs with inline formatting
+        else if (line !== '') {
+            // Process inline formatting
+            const segments = processInlineFormatting(line);
+            lexicalContent.root.children.push(
+                createParagraphNode(segments)
             );
         }
 
         currentIndex++;
+    }
+
+    // Handle any remaining blocks
+    if (inQuoteBlock && quoteContent.length > 0) {
+        lexicalContent.root.children.push(
+            createQuoteNode([
+                createParagraphNode([createTextNode(quoteContent.join('\n'))])
+            ])
+        );
+    }
+
+    if (inList && listItems.length > 0) {
+        const items = listItems.map(text => 
+            createListItemNode(
+                [createParagraphNode([createTextNode(text)])],
+                listType === 'number' ? 1 : undefined,
+                listType === 'check' ? false : undefined
+            )
+        );
+        lexicalContent.root.children.push(createListNode(listType, items));
     }
 
     // If no content was processed, add a default paragraph
@@ -234,6 +353,39 @@ export async function convertMarkdownToLexical(markdown: string): Promise<Lexica
     }
 
     return lexicalContent;
+}
+
+// Helper function to process inline formatting
+function processInlineFormatting(text: string): TextNode[] {
+    const nodes: TextNode[] = [];
+    let currentText = '';
+    let format = 0;
+    
+    // Process bold, italic, code, etc.
+    const segments = text.split(/(\*\*.*?\*\*|\*.*?\*|`.*?`|~~.*?~~)/g);
+    
+    for (const segment of segments) {
+        if (!segment) continue;
+        
+        if (segment.startsWith('**') && segment.endsWith('**')) {
+            // Bold
+            nodes.push(createTextNode(segment.slice(2, -2), TEXT_FORMAT_MAP.bold));
+        } else if (segment.startsWith('*') && segment.endsWith('*')) {
+            // Italic
+            nodes.push(createTextNode(segment.slice(1, -1), TEXT_FORMAT_MAP.italic));
+        } else if (segment.startsWith('`') && segment.endsWith('`')) {
+            // Inline code
+            nodes.push(createTextNode(segment.slice(1, -1), TEXT_FORMAT_MAP.code));
+        } else if (segment.startsWith('~~') && segment.endsWith('~~')) {
+            // Strikethrough
+            nodes.push(createTextNode(segment.slice(2, -2), TEXT_FORMAT_MAP.strikethrough));
+        } else {
+            // Plain text
+            nodes.push(createTextNode(segment));
+        }
+    }
+    
+    return nodes;
 }
 
 // Function to process image references in markdown
@@ -253,11 +405,14 @@ export function processImageReferences(markdown: string, uploadedImages: any[]):
     const imageRegex = /!\[(.*?)\]\(([^)]+)\)/g;
     processedMarkdown = processedMarkdown.replace(imageRegex, (match, alt, src) => {
         // Get the filename from the path
-        const filename = src.split('/').pop();
+        const filename = src ? src.split('/').pop() : '';
 
         // If we have this image in our uploaded images, replace with the new URL
-        if (imageMap.has(filename)) {
-            return `![${alt}](${imageMap.get(filename)})`;
+        if (filename && imageMap.has(filename)) {
+            const newUrl = imageMap.get(filename);
+            if (newUrl) {
+                return `![${alt}](${newUrl})`;
+            }
         }
 
         // Otherwise keep the original
