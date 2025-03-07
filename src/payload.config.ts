@@ -73,7 +73,6 @@ export default buildConfig({
   endpoints: endpoints,
   plugins: [
     ...plugins,
-    // storage-adapter-placeholder
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,

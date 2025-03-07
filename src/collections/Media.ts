@@ -17,9 +17,37 @@ export const Media: CollectionConfig = {
   },
   fields: [
     {
+      name: 'fileType',
+      type: 'select',
+      options: [
+        {
+          label: 'Image',
+          value: 'image',
+        },
+        {
+          label: 'Document',
+          value: 'document',
+        },
+        {
+          label: 'Markdown',
+          value: 'markdown',
+        },
+        {
+          label: 'Other',
+          value: 'other',
+        },
+      ],
+      defaultValue: 'image',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'alt',
       type: 'text',
-      //required: true,
+      admin: {
+        condition: (data) => data.fileType === 'image',
+      },
     },
     {
       name: 'caption',
@@ -34,6 +62,18 @@ export const Media: CollectionConfig = {
   upload: {
     focalPoint: true,
     adminThumbnail: 'thumbnail',
+    mimeTypes: [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'image/gif',
+      'image/svg+xml',
+      'text/markdown',
+      'text/plain',
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ],
     imageSizes: [
       {
         name: 'thumbnail',
@@ -67,5 +107,10 @@ export const Media: CollectionConfig = {
         crop: 'center',
       },
     ],
+    // Ensure we're not creating temp directories locally
+    // when processing images for MinIO storage
+    disableLocalStorage: true,
+    // Only apply image processing to image file types
+    // We'll handle conditional image processing in the collection hooks instead
   },
 }

@@ -64,6 +64,7 @@ export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     pages: Page;
     posts: Post;
@@ -329,6 +330,7 @@ export interface Post {
  */
 export interface Media {
   id: string;
+  fileType?: ('image' | 'document' | 'markdown' | 'other') | null;
   alt?: string | null;
   caption?: {
     root: {
@@ -1438,6 +1440,7 @@ export interface PostsSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  fileType?: T;
   alt?: T;
   caption?: T;
   prefix?: T;
