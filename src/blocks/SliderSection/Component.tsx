@@ -1,8 +1,8 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
-import { motion, useAnimation } from "framer-motion"
+import { motion, useAnimation, AnimatePresence } from "framer-motion"
 import type { Media } from "@/payload-types"
 
 type Props = {
@@ -16,40 +16,33 @@ type Props = {
 
 export const SliderSection: React.FC<Props> = ({ title, description, slides }) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const sliderControls = useAnimation()
-  const animationRef = useRef<boolean>(false)
+  const [isReady, setIsReady] = useState(false)
+  const [key, setKey] = useState(0) // Used to reset animation
 
+  // Only start animations after component is fully mounted and visible
   useEffect(() => {
-    let isMounted = true
-    
-    const animateSlider = async () => {
-      if (!isMounted || animationRef.current) return
+    const timer = setTimeout(() => {
+      setIsReady(true)
+    }, 500)
 
-      try {
-        animationRef.current = true
-        await sliderControls.start({ x: "-100%", transition: { duration: 20, ease: "linear" } })
-        
-        if (isMounted) {
-          sliderControls.set({ x: "0%" })
-          await new Promise(resolve => setTimeout(resolve, 0))
-          
-          if (isMounted) {
-            animateSlider()
-          }
-        }
-      } catch (error) {
-        console.error("Slider animation error:", error)
-      } finally {
-        animationRef.current = false
-      }
-    }
+    return () => clearTimeout(timer)
+  }, [])
 
-    animateSlider()
+  // Handle infinite loop animation without using set()
+  useEffect(() => {
+    if (!isReady) return
 
-    return () => {
-      isMounted = false
-    }
-  }, [sliderControls])
+    const interval = setInterval(() => {
+      // Reset animation by changing the key, forcing a re-mount
+      setKey(prev => prev + 1)
+    }, 20000) // Slightly longer than animation duration
+
+    return () => clearInterval(interval)
+  }, [isReady])
+
+  if (slides.length === 0) {
+    return null
+  }
 
   return (
     <section className="relative w-full py-8 overflow-hidden bg-white">
@@ -105,41 +98,51 @@ export const SliderSection: React.FC<Props> = ({ title, description, slides }) =
       </div>
 
       <div ref={containerRef} className="relative h-[450px] mt-16 overflow-hidden">
-        <motion.div
-          animate={sliderControls}
-          className="absolute flex gap-4 px-8"
-          style={{ width: `${slides.length * 470}px` }} // 450px width + 20px gap
-        >
-          {[...slides, ...slides].map((slide, index) => (
+        {isReady && (
+          <AnimatePresence mode="wait">
             <motion.div
-              key={index}
-              className="relative w-[450px] h-[400px] rounded-2xl overflow-hidden flex-shrink-0 group"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-100px" }}
+              key={key}
+              className="absolute flex gap-4 px-8"
+              style={{ width: `${slides.length * 470}px` }} // 450px width + 20px gap
+              initial={{ x: "0%" }}
+              animate={{ x: "-100%" }}
+              transition={{
+                duration: 20,
+                ease: "linear",
+                repeat: 0
+              }}
             >
-              {slide.image?.url ? (
-                <>
-                  <Image
-                    src={slide.image.url || "/placeholder.svg"}
-                    alt={slide.image.filename || "Slide image"}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-white text-lg font-semibold line-clamp-2">{slide.title}</h3>
-                  </div>
-                </>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                  <p className="text-gray-500">Please upload an image</p>
-                </div>
-              )}
+              {[...slides, ...slides].map((slide, index) => (
+                <motion.div
+                  key={index}
+                  className="relative w-[450px] h-[400px] rounded-2xl overflow-hidden flex-shrink-0 group"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                >
+                  {slide.image?.url ? (
+                    <>
+                      <Image
+                        src={slide.image.url || "/placeholder.svg"}
+                        alt={slide.image.filename || "Slide image"}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-white text-lg font-semibold line-clamp-2">{slide.title}</h3>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                      <p className="text-gray-500">Please upload an image</p>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
+          </AnimatePresence>
+        )}
       </div>
     </section>
   )
