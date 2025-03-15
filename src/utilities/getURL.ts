@@ -34,5 +34,6 @@ const MINIO_HOST = process.env.NEXT_PUBLIC_MINIO_HOSTNAME ?? 'https://minio.tick
 
 export const getMediaAssetURL = (path: string) => {
   if (path.startsWith('/')) path = path.slice(1)
-  return `${MINIO_HOST}/ticklab-website/media/${path}`
+  path = path.replace(/\//g, '%2F')
+  return `${MINIO_HOST}/ticklab-website/media%2F${path}`
 }
