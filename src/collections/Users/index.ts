@@ -29,7 +29,9 @@ export const Users: CollectionConfig = {
       options: [
         { 'label': 'Admin', value: 'admin' },
         { 'label': 'Member', value: 'member' },
-      ]
+      ],
+      required: true,
+      defaultValue: 'member',
     }
   ],
   timestamps: true,

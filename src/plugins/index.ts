@@ -60,10 +60,6 @@ export const plugins: Plugin[] = [
         prefix: 'media',
         generateFileURL,
       },
-      pages: true,
-      posts: true,
-      categories: true,
-      users: true
     },
     bucket: process.env.MINIO_BUCKET,
     config: {

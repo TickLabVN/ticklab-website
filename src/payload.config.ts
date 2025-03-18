@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 // storage-adapter-import-placeholder
-import { mongooseAdapter } from '@payloadcms/db-mongodb' // database-adapter-import
+import { postgresAdapter } from '@payloadcms/db-postgres' // database-adapter-import
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -28,7 +28,6 @@ export default buildConfig({
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
       beforeLogin: ['@/components/BeforeLogin'],
-      // afterLogin: ['@/components/AfterLogin/oauth2'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ['@/components/BeforeDashboard'],
@@ -63,17 +62,19 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   // database-adapter-config-start
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI,
+  db: postgresAdapter({
+    // Postgres-specific arguments go here.
+    // `pool` is required.
+    pool: {
+      connectionString: process.env.DATABASE_URI,
+    },
+    idType: 'serial',
   }),
   // database-adapter-config-end
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
-  plugins: [
-    ...plugins,
-    // storage-adapter-placeholder
-  ],
+  plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
