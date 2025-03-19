@@ -91,7 +91,6 @@ export default async function Page() {
 
               // Get author
               const authorName = post.populatedAuthors && post.populatedAuthors[0]?.name || 'Duy Vu'
-              console.log(post)
 
               return (
                 <div key={index} className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
