@@ -1,6 +1,5 @@
 import type { Metadata } from 'next/types'
 
-import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
@@ -96,7 +95,7 @@ export default async function Page() {
               return (
                 <div key={index} className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                   <div className="relative">
-                    {post.meta?.image && typeof post.meta.image !== 'string' && (
+                    {post.meta?.image && typeof post.meta.image !== 'number' && (
                       <img
                         src={post.meta.image.url || undefined}
                         alt={post.title || 'Blog post'}

@@ -8,6 +8,7 @@ import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+import { Button } from '@/components/ui/button'
 
 interface HeaderClientProps {
   data: Header
@@ -34,11 +35,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       className="relative z-20 bg-gradient-to-br from-white via-[#009485]/5 to-[#009485]/10"
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="py-4 flex justify-between">
+      <div className="py-4 pe-8 flex justify-between">
         <Link href="/">
           <Logo loading="eager" priority="high" />
         </Link>
         <HeaderNav data={data} />
+        <Button className='hover:bg-teal-800 hover:text-white p-5 font-semibold text-base' variant={'outline'}>Join TickLab</Button>
       </div>
     </header>
   )

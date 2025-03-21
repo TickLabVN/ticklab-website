@@ -5,15 +5,15 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { isMember } from '@/access/member'
 
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: isMember,
+    delete: isMember,
     read: anyone,
-    update: authenticated,
+    update: isMember,
   },
   fields: [
     {
