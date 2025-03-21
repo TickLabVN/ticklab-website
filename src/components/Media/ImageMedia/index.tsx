@@ -21,6 +21,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   const {
     alt: altFromProps,
     fill,
+    pictureClassName,
     imgClassName,
     priority,
     resource,
@@ -50,11 +51,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   const sizes = sizeFromProps
     ? sizeFromProps
     : Object.entries(breakpoints)
-        .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
-        .join(', ')
+      .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
+      .join(', ')
 
   return (
-    <picture>
+    <picture className={cn(pictureClassName)}>
       <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}
