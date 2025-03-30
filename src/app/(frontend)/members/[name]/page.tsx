@@ -1,5 +1,6 @@
 import React from 'react'
 import PageClient from './page.client'
+import Image from 'next/image'
 const user = {
   id: 5,
   name: 'Thai Nguyễn Gia Bao',
@@ -190,12 +191,13 @@ function MemberProfile() {
             src={user.avatar.url}
             alt={user.avatar.alt || 'Profile Photo'}
             className="w-full h-full object-cover"
+
           />
         </div>
         {/* Intro Text */}
         <div className="flex-1 flex flex-col text-left gap-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">
-            Hi, I'm <span className="text-blue-600">{user.name}</span>
+            Hi, I am <span className="text-blue-600">{user.name}</span>
           </h2>
           <p className="text-gray-700">{renderBio()}</p>
           {/* Badge Group */}
@@ -230,8 +232,6 @@ function MemberProfile() {
           </div>
         </div>
       </section>
-
-      
 
       {/* Projects Section */}
       <section id="projects" className="my-12 max-w-7xl mx-auto">
@@ -301,7 +301,7 @@ function MemberProfile() {
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
-                      {project.badges &&
+                      {/* {project.badges &&
                         project.badges.map((badge, idx) => (
                           <span
                             key={idx}
@@ -309,7 +309,7 @@ function MemberProfile() {
                           >
                             {badge}
                           </span>
-                        ))}
+                        ))} */}
                     </div>
                   </div>
                 </>
@@ -342,7 +342,7 @@ function MemberProfile() {
       {/* Blog Section */}
       <section id="blog" className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Blog</h2>
-        {user.blog ? (
+        {/* {user.blog ? (
           <div className="prose max-w-none">
             {user.blog.root.children.map((child, idx) => (
               <p key={idx}>{child.children.map((c) => c.text).join(' ')}</p>
@@ -350,7 +350,7 @@ function MemberProfile() {
           </div>
         ) : (
           <p className="text-gray-700">There is no blog now</p>
-        )}
+        )} */}
       </section>
 
       {/* Contact Section */}
