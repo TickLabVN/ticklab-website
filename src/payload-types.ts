@@ -427,7 +427,59 @@ export interface Category {
  */
 export interface User {
   id: number;
-  name?: string | null;
+  name: string;
+  avatar?: (number | null) | Media;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  projects?:
+    | {
+        title?: string | null;
+        description?: string | null;
+        link?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  activities?:
+    | {
+        title?: string | null;
+        description?: string | null;
+        date?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  blog?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  contact?: {
+    email?: string | null;
+    phone?: string | null;
+  };
   role: 'admin' | 'member';
   updatedAt: string;
   createdAt: string;
@@ -1503,6 +1555,32 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  avatar?: T;
+  bio?: T;
+  projects?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?: T;
+        image?: T;
+        id?: T;
+      };
+  activities?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        date?: T;
+        id?: T;
+      };
+  blog?: T;
+  contact?:
+    | T
+    | {
+        email?: T;
+        phone?: T;
+      };
   role?: T;
   updatedAt?: T;
   createdAt?: T;
