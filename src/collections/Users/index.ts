@@ -8,10 +8,10 @@ export const Users: CollectionConfig = {
   slug: 'users',
   access: {
     admin: isMember,
-    create: isAdmin,
-    delete: isAdmin,
+    create: isMember,
+    delete: isMember,
     read: authenticated,
-    update: isAdmin,
+    update: isMember,
   },
   admin: {
     defaultColumns: ['name', 'email', 'role'],
@@ -61,6 +61,11 @@ export const Users: CollectionConfig = {
         {
           name: 'university',
           type: 'text',
+        },
+        {
+          name: 'cv',
+          type: 'upload',
+          relationTo: 'media',
         },
       ],
     },

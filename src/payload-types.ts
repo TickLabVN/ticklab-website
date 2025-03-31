@@ -451,6 +451,7 @@ export interface User {
     email?: string | null;
     major?: string | null;
     university?: string | null;
+    cv?: (number | null) | Media;
   };
   projects?:
     | {
@@ -1582,6 +1583,7 @@ export interface UsersSelect<T extends boolean = true> {
         email?: T;
         major?: T;
         university?: T;
+        cv?: T;
       };
   projects?:
     | T
