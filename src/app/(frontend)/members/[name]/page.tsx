@@ -1,6 +1,7 @@
 import React from 'react'
 import PageClient from './page.client'
 import Image from 'next/image'
+import { FaFileAlt, FaGithub, FaLinkedin } from 'react-icons/fa'
 const user = {
   id: 5,
   name: 'Thai Nguyễn Gia Bao',
@@ -126,72 +127,17 @@ function MemberProfile() {
 
   return (
     <div className="bg-white text-gray-800 font-sans mx-auto md:text-xl px-6 text-lg">
-      {/* Navigation Bar */}
-      <header className="bg-white border-b border-gray-200 w-full p-0 md:px-20 py-4">
-        <nav className="bg-white border-gray-200">
-          <div className="flex flex-wrap items-center justify-between mx-auto">
-            <span className="self-center text-2xl md:text-3xl font-bold">Thai Nguyen Gia Bao</span>
-            <button
-              data-collapse-toggle="navbar-default"
-              type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              aria-controls="navbar-default"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
-            </button>
-            <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-              <ul className="font-medium flex flex-col mt-2 text-gray-600 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
-                <li>
-                  <a href="#education" className="hover:text-blue-600">
-                    Education
-                  </a>
-                </li>
-                <li>
-                  <a href="#projects" className="hover:text-blue-600">
-                    Projects
-                  </a>
-                </li>
-                <li>
-                  <a href="#activities" className="hover:text-blue-600">
-                    Activities
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="hover:text-blue-600">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <PageClient />
 
       {/* Hero / Intro Section */}
-      <section className="my-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4">
+      <section className="my-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-8">
         {/* Profile Picture */}
         <div className="w-full sm:w-96 sm:h-96 rounded-xl overflow-hidden shadow">
-          <img
+          <Image
+            width={960}
+            height={960}
             src={user.avatar.url}
             alt={user.avatar.alt || 'Profile Photo'}
-            className="w-full h-full object-cover"
-
           />
         </div>
         {/* Intro Text */}
@@ -200,7 +146,6 @@ function MemberProfile() {
             Hi, I am <span className="text-blue-600">{user.name}</span>
           </h2>
           <p className="text-gray-700">{renderBio()}</p>
-          {/* Badge Group */}
           <div className="flex flex-wrap gap-4 text-sm md:text-lg">
             <a
               href="cv/cv.pdf"
@@ -208,7 +153,7 @@ function MemberProfile() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-shadow shadow-md"
             >
-              <i className="fas fa-file-alt"></i>
+              <FaFileAlt />
               <span>CV</span>
             </a>
             <a
@@ -217,7 +162,7 @@ function MemberProfile() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 transition-shadow shadow-md"
             >
-              <i className="fab fa-github"></i>
+              <FaGithub />
               <span>GitHub</span>
             </a>
             <a
@@ -226,7 +171,7 @@ function MemberProfile() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition-shadow shadow-md"
             >
-              <i className="fab fa-linkedin"></i>
+              <FaLinkedin />
               <span>LinkedIn</span>
             </a>
           </div>
@@ -371,11 +316,6 @@ function MemberProfile() {
           </li>
         </ul>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-50 text-center py-4 mt-8 text-sm text-gray-600">
-        &copy; {new Date().getFullYear()} Thai Nguyen Gia Bao. All rights reserved.
-      </footer>
     </div>
   )
 }

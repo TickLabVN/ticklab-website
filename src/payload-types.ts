@@ -444,6 +444,14 @@ export interface User {
     };
     [k: string]: unknown;
   } | null;
+  infomation?: {
+    github?: string | null;
+    linkedin?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    major?: string | null;
+    university?: string | null;
+  };
   projects?:
     | {
         title?: string | null;
@@ -456,26 +464,34 @@ export interface User {
   activities?:
     | {
         title?: string | null;
-        description?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         date?: string | null;
         id?: string | null;
       }[]
     | null;
-  blog?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  blog?:
+    | {
+        title?: string | null;
+        description?: string | null;
+        link?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   contact?: {
     email?: string | null;
     phone?: string | null;
@@ -1557,6 +1573,16 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   avatar?: T;
   bio?: T;
+  infomation?:
+    | T
+    | {
+        github?: T;
+        linkedin?: T;
+        phone?: T;
+        email?: T;
+        major?: T;
+        university?: T;
+      };
   projects?:
     | T
     | {
@@ -1574,7 +1600,15 @@ export interface UsersSelect<T extends boolean = true> {
         date?: T;
         id?: T;
       };
-  blog?: T;
+  blog?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?: T;
+        image?: T;
+        id?: T;
+      };
   contact?:
     | T
     | {

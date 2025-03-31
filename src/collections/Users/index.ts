@@ -34,6 +34,37 @@ export const Users: CollectionConfig = {
       type: 'richText',
     },
     {
+      name: 'infomation',
+      type: 'group',
+      // Contain: gitgithub, linkedin, phone, email, major, university
+      fields: [
+        {
+          name: 'github',
+          type: 'text',
+        },
+        {
+          name: 'linkedin',
+          type: 'text',
+        },
+        {
+          name: 'phone',
+          type: 'text',
+        },
+        {
+          name: 'email',
+          type: 'email',
+        },
+        {
+          name: 'major',
+          type: 'text',
+        },
+        {
+          name: 'university',
+          type: 'text',
+        },
+      ],
+    },
+    {
       name: 'projects',
       type: 'array',
       fields: [
@@ -66,7 +97,7 @@ export const Users: CollectionConfig = {
         },
         {
           name: 'description',
-          type: 'textarea',
+          type: 'richText',
         },
         {
           name: 'date',
@@ -76,7 +107,26 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'blog',
-      type: 'richText',
+      type: 'array',
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+        },
+        {
+          name: 'link',
+          type: 'text',
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+        },
+      ],
     },
     {
       name: 'contact',
