@@ -46,23 +46,28 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ roadmapData }) => {
 
   return (
     <div className="min-h-screen scroll-smooth">
-      {/* Sticky Navbar */}
-      <nav className="sticky top-0 z-40 bg-white shadow">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="text-4xl font-bold text-blue-800">Roadmaps</div>
-          <div className="space-x-4">
+      <PageClient />
+
+      <div className="py-12 px-4 text-center">
+        <div className="container mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold ">Roadmaps</h1>
+          <p className="mt-4 text-lg max-w-4xl mx-auto">
+            Explore our curated roadmaps for Software Engineering, Hardware Engineering, and AI
+            Research. Click a link below to jump to your area of interest.
+          </p>
+          <div className="mt-6 space-x-10">
             {roadmapData.map((roadmap) => (
               <a
                 key={roadmap.id}
                 href={`#${roadmap.id}`}
-                className="text-blue-600 text-2xl font-bold hover:text-blue-800 transition-colors"
+                className="inline-block text-xl font-bold bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition-colors"
               >
-                {roadmap.title.split(' ')[0]} {/* e.g., Software, Hardware, AI */}
+                {roadmap.title}
               </a>
             ))}
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Roadmap Sections */}
       {selectedRoadmap ? (
@@ -71,7 +76,7 @@ const RoadmapList: React.FC<RoadmapListProps> = ({ roadmapData }) => {
         <div className="container mx-auto px-4 py-8 space-y-12">
           {roadmapData.map((roadmap) => (
             <section key={roadmap.id} id={roadmap.id} className="space-y-4">
-              <h2 className="text-3xl font-bold text-blue-800">{roadmap.title}</h2>
+              <h2 className="text-3xl font-bold ">{roadmap.title}</h2>
               <p className="text-lg text-gray-700">{roadmap.description}</p>
               <div className="w-full h-screen border border-gray-200 rounded-lg overflow-hidden shadow-md relative group">
                 <iframe

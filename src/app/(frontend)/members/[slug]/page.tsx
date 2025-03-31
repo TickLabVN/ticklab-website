@@ -8,6 +8,7 @@ import configPromise from '@payload-config'
 import { User } from '@/payload-types'
 import { Media } from '@/payload-types'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
+import { ProjectCard } from '@/components/ProjectCard'
 
 type Args = {
   params: Promise<{ slug: string }>
@@ -38,9 +39,6 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
     <div className="bg-white text-gray-800 font-sans mx-auto md:text-xl px-6 text-lg">
       <PageClient />
 
-      {/* <PayloadRedirects disableNotFound url={url} /> */}
-
-      {/* {draft && <LivePreviewListener />} */}
 
       {/* Hero / Intro Section */}
       <section className="my-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-8">
@@ -96,82 +94,15 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
       {/* Projects Section */}
       <section id="projects" className="my-12 max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Featured Projects</h2>
-        {user.projects?.length === 0 && (
+        {user.projects?.length === 0 ? (
           <p className="text-gray-700 text-lg">There are no projects now</p>
+        ) : (
+          <div>
+            {user.projects?.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
         )}
-        <div>
-          {user.projects?.map((project, index) => (
-            <div
-              key={project.id}
-              className={`flex gap-4 items-center mt-8 border border-gray-100 rounded-xl animate__animated animate__fadeInUp ${
-                (index + 1) % 2 === 1 ? 'flex-col-reverse md:flex-row' : 'flex-col md:flex-row'
-              }`}
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              {(index + 1) % 2 === 1 ? (
-                <>
-                  {/* Project Details */}
-                  <div className="px-6 pb-4 md:py-2 flex-1">
-                    <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
-                      {project.title}
-                    </h3>
-                    <RichText
-                      data={project.description as DefaultTypedEditorState}
-                      enableGutter={false}
-                    />
-                  </div>
-                  {/* Project Screenshot */}
-                  {project.image && (
-                    <a
-                      href={project.link || ''}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1"
-                    >
-                      <Image
-                        width={800}
-                        height={600}
-                        src={project.image.url}
-                        alt={project.image.alt}
-                        className="w-full max-h-md h-auto rounded-t-lg md:rounded-r-lg md:rounded-l-none shadow-lg"
-                      />
-                    </a>
-                  )}
-                </>
-              ) : (
-                <>
-                  {/* Project Screenshot */}
-                  {project.image && (
-                    <a
-                      href={project.link || ''}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1"
-                    >
-                      <Image
-                        width={800}
-                        height={600}
-                        src={project.image.url}
-                        alt={project.image.alt}
-                        className="w-full max-h-md h-auto rounded-t-lg md:rounded-l-lg md:rounded-r-none shadow-lg"
-                      />
-                    </a>
-                  )}
-                  {/* Project Details */}
-                  <div className="px-6 pb-4 md:py-2 flex-1">
-                    <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
-                      {project.title}
-                    </h3>
-                    <RichText
-                      data={project.description as DefaultTypedEditorState}
-                      enableGutter={false}
-                    />
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* Activities Section */}
@@ -185,7 +116,7 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
             <div key={activity.id}>
               <h3 className="text-xl font-semibold">
                 <span className="font-bold">
-                  {new Date(activity.date).toLocaleDateString('en-US', {
+                  {new Date(activity.date || '').toLocaleDateString('en-US', {
                     month: 'short',
                     year: 'numeric',
                   })}
