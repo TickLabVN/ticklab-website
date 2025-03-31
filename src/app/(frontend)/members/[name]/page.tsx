@@ -1,128 +1,32 @@
 import React from 'react'
-import PageClient from './page.client'
 import Image from 'next/image'
 import { FaFileAlt, FaGithub, FaLinkedin } from 'react-icons/fa'
-const user = {
-  id: 5,
-  name: 'Thai Nguyễn Gia Bao',
-  avatar: {
-    id: 25,
-    alt: 'bao-avatar',
-    caption: null,
-    prefix: 'media',
-    updatedAt: '2025-03-30T17:26:35.645Z',
-    createdAt: '2025-03-30T17:26:35.752Z',
-    url: 'https://minio.ticklab.site/ticklab-website-dev/media%2Fbao.jpg',
-    thumbnailURL: '/api/media/file/bao-300x300.jpg',
-    filename: 'bao.jpg',
-    mimeType: 'image/jpeg',
-    filesize: 70689,
-    width: 959,
-    height: 960,
-    focalX: 50,
-    focalY: 50,
-    sizes: {
-      /* omitted for brevity */
-    },
-  },
-  bio: {
-    root: {
-      type: 'root',
-      format: '',
-      indent: 0,
-      version: 1,
-      children: [
-        {
-          type: 'paragraph',
-          format: 'left',
-          indent: 0,
-          version: 1,
-          children: [
-            {
-              mode: 'normal',
-              text: "Hi, I'm Thai Nguyen Gia Bao",
-              type: 'text',
-              style: '',
-              detail: 0,
-              format: 1,
-              version: 1,
-            },
-            { type: 'linebreak', version: 1 },
-            { type: 'linebreak', version: 1 },
-            {
-              mode: 'normal',
-              text: 'I’m a Computer Science student (Honors Program) at Ho Chi Minh University of Technology - VNU',
-              type: 'text',
-              style: '',
-              detail: 0,
-              format: 0,
-              version: 1,
-            },
-          ],
-          direction: 'ltr',
-          textStyle: '',
-          textFormat: 1,
-        },
-      ],
-      direction: 'ltr',
-      textFormat: 1,
-    },
-  },
-  projects: [
-    {
-      id: '67e97f0a5a6746fbef7523ca',
-      title: 'TickPortal',
-      description:
-        'Developed a Discord bot that centralized notifications from Gmail and Facebook to Ticklab’s Discord, automated workflows for email forwarding, CV management, and candidate scheduling, streamlining HR processes.',
-      link: 'https://iqthaison.vercel.app/',
-      image: {
-        id: 26,
-        alt: 'ticklab',
-        url: 'https://minio.ticklab.site/ticklab-website-dev/media%2Fticklab.png',
-      },
-    },
-    {
-      id: '67e97f515a6746fbef7523cc',
-      title: 'IQThaiSon',
-      description:
-        'A website that provides online courses for students preparing for the university entrance exam, with features such as prevent multiple login in one accound, prevent to download video,...',
-      link: 'https://iqthaison.vercel.app/',
-      image: {
-        id: 27,
-        alt: 'iqthaison',
-        url: 'https://minio.ticklab.site/ticklab-website-dev/media%2Fiqthaison.png',
-      },
-    },
-  ],
-  activities: [
-    {
-      id: '67e97f805a6746fbef7523ce',
-      title: 'Research about Decentralized Federated Learning',
-      description:
-        '- Advisor: Nhan Trong Phan, Ph.D\n- Focusing on performance optimization, security & privacy (DP, SMC, HE), protocols (p2p, blockchain-based)',
-      date: '2025-01-01T12:00:00.000Z',
-    },
-  ],
-  blog: null,
-  contact: {
-    email: 'bao.thainguyenkhmt@hcmut.edu.com',
-    phone: '0332 504 557',
-  },
-  role: 'member',
-  updatedAt: '2025-03-30T17:30:51.444Z',
-  createdAt: '2025-03-30T17:30:24.103Z',
-  email: 'bao.thainguyenkhmt@hcmut.edu.vn',
-  loginAttempts: 0,
-}
+import PageClient from './page.client' // adjust the import path as needed
+import RichText from '@/components/RichText'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+import { User } from '@/payload-types'
+import { Media } from '@/payload-types'
 
-function MemberProfile() {
-  const renderBio = () => {
-    if (user.bio && user.bio.root && user.bio.root.children?.length) {
-      return user.bio.root.children
-        .map((child) => child.children?.map((c) => c.text).join(' ') || '')
-        .join('\n\n')
-    }
-    return ''
+async function MemberProfile() {
+  // Helper function to render the rich text bio
+  const payload = await getPayload({ config: configPromise })
+
+  const result = await payload.find({
+    collection: 'users',
+    where: {
+      slug: {
+        equals: 'thainguyengiabao',
+      },
+    },
+    limit: 1,
+    pagination: false,
+  })
+  console.log(result)
+
+  const user: User | undefined = result.docs[0]
+  if (!user) {
+    return <div>User not found</div>
   }
 
   return (
@@ -136,28 +40,27 @@ function MemberProfile() {
           <Image
             width={960}
             height={960}
-            src={user.avatar.url}
-            alt={user.avatar.alt || 'Profile Photo'}
+            src={(user.avatar as Media).url || ''}
+            alt={(user.avatar as Media).alt || 'Profile Photo'}
           />
         </div>
         {/* Intro Text */}
         <div className="flex-1 flex flex-col text-left gap-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">
-            Hi, I am <span className="text-blue-600">{user.name}</span>
-          </h2>
-          <p className="text-gray-700">{renderBio()}</p>
+          <RichText className="max-w-[48rem] mx-auto" data={user.bio} enableGutter={false} />
           <div className="flex flex-wrap gap-4 text-sm md:text-lg">
+            {user.infomation && user.infomation.cv && (
+              <a
+                href={user.infomation.cv?.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-shadow shadow-md"
+              >
+                <FaFileAlt />
+                <span>CV</span>
+              </a>
+            )}
             <a
-              href="cv/cv.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-shadow shadow-md"
-            >
-              <FaFileAlt />
-              <span>CV</span>
-            </a>
-            <a
-              href="https://github.com/ThaiNguyenGiaBao"
+              href={user.infomation?.github || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 transition-shadow shadow-md"
@@ -166,7 +69,7 @@ function MemberProfile() {
               <span>GitHub</span>
             </a>
             <a
-              href="https://www.linkedin.com/in/bao-thai-nguyen-gia-2450b22b7"
+              href={user.infomation?.linkedin || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition-shadow shadow-md"
@@ -181,8 +84,11 @@ function MemberProfile() {
       {/* Projects Section */}
       <section id="projects" className="my-12 max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Featured Projects</h2>
+        {user.projects?.length === 0 && (
+          <p className="text-gray-700 text-lg">There are no projects now</p>
+        )}
         <div>
-          {user.projects.map((project, index) => (
+          {user.projects?.map((project, index) => (
             <div
               key={project.id}
               className={`flex gap-4 items-center mt-8 border border-gray-100 rounded-xl animate__animated animate__fadeInUp ${
@@ -197,65 +103,59 @@ function MemberProfile() {
                     <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
                       {project.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {/* {project.badges &&
-                        project.badges.map((badge, idx) => (
-                          <span
-                            key={idx}
-                            className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
-                          >
-                            {badge}
-                          </span>
-                        ))} */}
-                    </div>
+                    <RichText
+                      className="max-w-[48rem] mx-auto"
+                      data={project.description}
+                      enableGutter={false}
+                    />
                   </div>
                   {/* Project Screenshot */}
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1"
-                  >
-                    <img
-                      src={project.image.url}
-                      alt={project.image.alt}
-                      className="w-full max-h-md h-auto rounded-t-lg md:rounded-r-lg md:rounded-l-none shadow-lg"
-                    />
-                  </a>
+                  {project.image && (
+                    <a
+                      href={project.link || ''}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1"
+                    >
+                      <Image
+                        width={800}
+                        height={600}
+                        src={project.image.url}
+                        alt={project.image.alt}
+                        className="w-full max-h-md h-auto rounded-t-lg md:rounded-r-lg md:rounded-l-none shadow-lg"
+                      />
+                    </a>
+                  )}
                 </>
               ) : (
                 <>
                   {/* Project Screenshot */}
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1"
-                  >
-                    <img
-                      src={project.image.url}
-                      alt={project.image.alt}
-                      className="w-full max-h-md h-auto rounded-t-lg md:rounded-l-lg md:rounded-r-none shadow-lg"
-                    />
-                  </a>
+                  {project.image && (
+                    <a
+                      href={project.link || ''}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1"
+                    >
+                      <Image
+                        width={800}
+                        height={600}
+                        src={project.image.url}
+                        alt={project.image.alt}
+                        className="w-full max-h-md h-auto rounded-t-lg md:rounded-l-lg md:rounded-r-none shadow-lg"
+                      />
+                    </a>
+                  )}
                   {/* Project Details */}
                   <div className="px-6 pb-4 md:py-2 flex-1">
                     <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
                       {project.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {/* {project.badges &&
-                        project.badges.map((badge, idx) => (
-                          <span
-                            key={idx}
-                            className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800"
-                          >
-                            {badge}
-                          </span>
-                        ))} */}
-                    </div>
+                    <RichText
+                      className="max-w-[48rem] mx-auto"
+                      data={project.description}
+                      enableGutter={false}
+                    />
                   </div>
                 </>
               )}
@@ -267,18 +167,20 @@ function MemberProfile() {
       {/* Activities Section */}
       <section id="activities" className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Activities</h2>
+        {user.activities?.length === 0 && (
+          <p className="text-gray-700 text-lg">There are no activities now</p>
+        )}
+
         <div className="space-y-8">
-          {user.activities.map((activity) => (
+          {user.activities?.map((activity) => (
             <div key={activity.id}>
               <h3 className="text-xl font-semibold">
-                <span className="font-bold">{new Date(activity.date).toLocaleDateString()}</span>:{' '}
-                {activity.title}
+                <span className="font-bold">
+                  {new Date(activity?.date || ' ').toLocaleDateString()}
+                </span>
+                : {activity.title}
               </h3>
-              <ul className="list-disc list-inside mt-2 text-gray-700">
-                {activity.description.split('\n').map((line, idx) => (
-                  <li key={idx}>{line}</li>
-                ))}
-              </ul>
+              <RichText data={activity.description} enableGutter={false} />
             </div>
           ))}
         </div>
@@ -287,20 +189,27 @@ function MemberProfile() {
       {/* Blog Section */}
       <section id="blog" className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Blog</h2>
-        {/* {user.blog ? (
+        {user.blog && user.blog.length > 0 ? (
           <div className="prose max-w-none">
-            {user.blog.root.children.map((child, idx) => (
-              <p key={idx}>{child.children.map((c) => c.text).join(' ')}</p>
+            {user.blog.map((blogItem, idx) => (
+              <p key={idx}>
+                {blogItem?.root.children
+                  .map((child) => child.children?.map((c) => c.text).join(' ') || '')
+                  .join(' ')}
+              </p>
             ))}
           </div>
         ) : (
-          <p className="text-gray-700">There is no blog now</p>
-        )} */}
+          <p className="text-gray-700 text-lg">There is no blog now</p>
+        )}
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Contact</h2>
+        {user.contact == undefined && (
+          <p className="text-gray-700 text-lg">There is no contact now</p>
+        )}
         <p className="text-gray-700">
           Interested in collaborating or learning more about my work? Feel free to reach out:
         </p>

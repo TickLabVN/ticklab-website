@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-
+import slugify from 'slugify'
 import { authenticated } from '@/access/authenticated'
 import { isAdmin } from '@/access/admin'
 import { isMember } from '@/access/member'
@@ -9,7 +9,7 @@ export const Users: CollectionConfig = {
   access: {
     admin: isMember,
     create: isMember,
-    delete: isMember,
+    delete: isAdmin,
     read: authenticated,
     update: isMember,
   },
@@ -22,6 +22,12 @@ export const Users: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      required: true,
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      unique: true,
       required: true,
     },
     {
@@ -79,7 +85,7 @@ export const Users: CollectionConfig = {
         },
         {
           name: 'description',
-          type: 'textarea',
+          type: 'richText',
         },
         {
           name: 'link',
@@ -120,7 +126,7 @@ export const Users: CollectionConfig = {
         },
         {
           name: 'description',
-          type: 'textarea',
+          type: 'richText',
         },
         {
           name: 'link',

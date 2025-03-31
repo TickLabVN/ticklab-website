@@ -428,6 +428,7 @@ export interface Category {
 export interface User {
   id: number;
   name: string;
+  slug: string;
   avatar?: (number | null) | Media;
   bio?: {
     root: {
@@ -456,7 +457,21 @@ export interface User {
   projects?:
     | {
         title?: string | null;
-        description?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         link?: string | null;
         image?: (number | null) | Media;
         id?: string | null;
@@ -487,7 +502,21 @@ export interface User {
   blog?:
     | {
         title?: string | null;
-        description?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         link?: string | null;
         image?: (number | null) | Media;
         id?: string | null;
@@ -1572,6 +1601,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   avatar?: T;
   bio?: T;
   infomation?:
