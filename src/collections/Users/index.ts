@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import slugify from 'slugify'
 import { authenticated } from '@/access/authenticated'
 import { isAdmin } from '@/access/admin'
 import { isMember } from '@/access/member'
