@@ -451,6 +451,7 @@ export interface User {
     phone?: string | null;
     email?: string | null;
     major?: string | null;
+    position?: string | null;
     university?: string | null;
     cv?: (number | null) | Media;
   };
@@ -1612,6 +1613,7 @@ export interface UsersSelect<T extends boolean = true> {
         phone?: T;
         email?: T;
         major?: T;
+        position?: T;
         university?: T;
         cv?: T;
       };

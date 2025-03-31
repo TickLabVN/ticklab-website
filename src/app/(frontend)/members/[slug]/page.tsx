@@ -7,7 +7,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { User } from '@/payload-types'
 import { Media } from '@/payload-types'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 type Args = {
   params: Promise<{ slug: string }>
@@ -55,19 +55,22 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
         </div>
         {/* Intro Text */}
         <div className="flex-1 flex flex-col text-left gap-4">
-          <RichText className="mx-0" data={user.bio} enableGutter={false} />
+          <RichText
+            className="mx-0"
+            data={user.bio as DefaultTypedEditorState}
+            enableGutter={false}
+          />
           <div className="flex flex-wrap gap-4 text-sm md:text-lg">
-            {user.infomation && user.infomation.cv && (
-              <a
-                href={user.infomation.cv?.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-shadow shadow-md"
-              >
-                <FaFileAlt />
-                <span>CV</span>
-              </a>
-            )}
+            <a
+              href={user.infomation?.cv?.url || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-shadow shadow-md"
+            >
+              <FaFileAlt />
+              <span>CV</span>
+            </a>
+
             <a
               href={user.infomation?.github || '#'}
               target="_blank"
@@ -112,7 +115,10 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
                     <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
                       {project.title}
                     </h3>
-                    <RichText data={project.description} enableGutter={false} />
+                    <RichText
+                      data={project.description as DefaultTypedEditorState}
+                      enableGutter={false}
+                    />
                   </div>
                   {/* Project Screenshot */}
                   {project.image && (
@@ -156,7 +162,10 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
                     <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
                       {project.title}
                     </h3>
-                    <RichText data={project.description} enableGutter={false} />
+                    <RichText
+                      data={project.description as DefaultTypedEditorState}
+                      enableGutter={false}
+                    />
                   </div>
                 </>
               )}
@@ -166,7 +175,7 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
       </section>
 
       {/* Activities Section */}
-      <section id="activities" className="max-w-7xl mx-auto px-4 py-12">
+      <section id="activities" className="max-w-7xl mx-auto py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Activities</h2>
         {user.activities?.length === 0 && (
           <p className="text-gray-700 text-lg">There are no activities now</p>
@@ -183,14 +192,17 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
                 </span>
                 : {activity.title}
               </h3>
-              <RichText data={activity.description} enableGutter={false} />
+              <RichText
+                data={activity.description as DefaultTypedEditorState}
+                enableGutter={false}
+              />
             </div>
           ))}
         </div>
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="max-w-7xl mx-auto px-4 py-12">
+      <section id="blog" className="max-w-7xl mx-auto py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Blog</h2>
         {user.blog && user.blog.length > 0 ? (
           <div className="prose max-w-none">
@@ -208,7 +220,7 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="max-w-7xl mx-auto px-4 py-12">
+      <section id="contact" className="max-w-7xl mx-auto  py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Contact</h2>
         {user.contact == undefined && (
           <p className="text-gray-700 text-lg">There is no contact now</p>

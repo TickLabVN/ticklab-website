@@ -65,6 +65,10 @@ export const Users: CollectionConfig = {
           type: 'text',
         },
         {
+          name: 'position',
+          type: 'text',
+        },
+        {
           name: 'university',
           type: 'text',
         },

@@ -1,77 +1,46 @@
 import React from 'react'
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaYoutube,
-  FaHeart,
-  FaEye,
-  FaComment,
-} from 'react-icons/fa'
+import Image from 'next/image'
+export interface Profile {
+  avatar: string
+  name: string
+  role: string
+  position: string
+  major: string
+  university: string
+  slug: string
+}
 
-const ProfileCard: React.FC = () => {
+// Props for the ProfileCard
+export interface ProfileCardProps {
+  profile: Profile
+}
+
+export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
   return (
-    <div className="w-72 rounded-xl overflow-hidden shadow-md bg-white">
-      {/* Banner Section */}
-      <div className="relative bg-blue-500 h-20 flex items-center justify-center">
-        {/* Avatar */}
-        <img
-          className="w-20 h-20 rounded-full border-4 border-white absolute top-10"
-          src="https://via.placeholder.com/150"
-          alt="Profile"
-        />
-      </div>
-
-      {/* Content Section */}
-      <div className="mt-12 flex flex-col items-center p-4">
-        {/* Name & Subtitle */}
-        <h2 className="text-xl font-bold text-gray-800">CodingLab</h2>
-        <p className="text-gray-500 text-sm">YouTuber &amp; Blogger</p>
-
-        {/* Social Media Icons */}
-        <div className="flex gap-2 mt-3">
-          <a href="#" className="text-blue-600 hover:text-blue-700">
-            <FaFacebook size={20} />
-          </a>
-          <a href="#" className="text-blue-400 hover:text-blue-500">
-            <FaTwitter size={20} />
-          </a>
-          <a href="#" className="text-pink-500 hover:text-pink-600">
-            <FaInstagram size={20} />
-          </a>
-          <a href="#" className="text-red-600 hover:text-red-700">
-            <FaYoutube size={20} />
-          </a>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-3 mt-4">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-            Subscribe
-          </button>
-          <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
-            Message
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div className="flex justify-between w-full mt-5 border-t pt-3 text-sm text-gray-600">
-          <div className="flex items-center gap-1">
-            <FaHeart className="text-red-500" />
-            <span>60.4k</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <FaEye className="text-blue-500" />
-            <span>20k</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <FaComment className="text-green-500" />
-            <span>12.4k</span>
-          </div>
+    <div className="w-80 relative border border-gray-200 rounded-2xl shadow-md p-5 flex flex-col items-center bg-white ">
+      <span className="absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-green-700 border border-green-600 rounded-full">
+        {profile.role}
+      </span>
+      <div className="relative w-52 h-52 rounded-full border-2 border-gray-300 overflow-hidden">
+        <div className="relative w-52 h-52 rounded-full border-2 border-gray-300 overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out">
+          <Image src={profile.avatar} alt="User Avatar" fill style={{ objectFit: 'cover' }} />
         </div>
       </div>
+      {/* Role Tag (e.g., "Member") */}
+      {/* Name & Position */}
+      <h2 className="mt-4 text-2xl font-bold text-gray-800 text-center">{profile.name}</h2>
+      <p className="text-lg text-green-700 font-bold">{profile.position}</p>
+      {/* Major / Department */}
+      <p className="mt-1 text-sm text-gray-600 text-center">
+        {`${profile.major} of ${profile.university}`}
+      </p>
+      {/* "View Profile" Button */}
+      <a
+        href={'members/' + profile.slug}
+        className="mt-4 bg-green-700 text-white px-4 py-2 rounded-full hover:bg-green-800 transition"
+      >
+        View Profile
+      </a>
     </div>
   )
 }
-
-export default ProfileCard
