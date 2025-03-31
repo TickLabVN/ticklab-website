@@ -15,7 +15,7 @@ export const ProjectCard = ({ project, index }: { project: any; index: number })
 
   const screenshot = project.image && (
     <a href={project.link || ''} target="_blank" rel="noopener noreferrer" className="flex-1">
-      <div className="relative md:w-full w-[600px] h-[300px] sm:h-[500px] shadow-lg">
+      <div className="relative md:w-full  h-[300px] sm:h-[500px] shadow-lg">
         <Image
           src={project.image.url}
           alt={project.image.alt}
@@ -37,7 +37,7 @@ export const ProjectCard = ({ project, index }: { project: any; index: number })
         className={`flex  gap-4 items-center mt-8 border border-gray-200 shadow-lg rounded-xl flex-col-reverse md:flex-row w-full`}
       >
         <div className="w-full md:w-1/2">{details}</div>
-        <div className="w-full md:w-1/2">{screenshot}</div>
+        <div className="w-full md:w-[500px]">{screenshot}</div>
       </div>
     )
   } else {
@@ -47,7 +47,7 @@ export const ProjectCard = ({ project, index }: { project: any; index: number })
         className={`flex gap-4 items-center mt-8 border border-gray-200 shadow-lg rounded-xl flex-col md:flex-row w-full`}
       >
         <div className="w-full md:w-1/2">{screenshot}</div>
-        <div className="w-full md:w-1/2">{details}</div>
+        <div className="w-full md:w-[500px]">{details}</div>
       </div>
     )
   }
