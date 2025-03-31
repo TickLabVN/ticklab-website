@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-
 import { authenticated } from '@/access/authenticated'
 import { isAdmin } from '@/access/admin'
 import { isMember } from '@/access/member'
@@ -8,10 +7,10 @@ export const Users: CollectionConfig = {
   slug: 'users',
   access: {
     admin: isMember,
-    create: isAdmin,
+    create: isMember,
     delete: isAdmin,
     read: authenticated,
-    update: isAdmin,
+    update: isMember,
   },
   admin: {
     defaultColumns: ['name', 'email', 'role'],
@@ -25,6 +24,12 @@ export const Users: CollectionConfig = {
       required: true,
     },
     {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      required: true,
+    },
+    {
       name: 'avatar',
       type: 'upload',
       relationTo: 'media',
@@ -32,6 +37,46 @@ export const Users: CollectionConfig = {
     {
       name: 'bio',
       type: 'richText',
+    },
+    {
+      name: 'infomation',
+      type: 'group',
+      // Contain: gitgithub, linkedin, phone, email, major, university
+      fields: [
+        {
+          name: 'github',
+          type: 'text',
+        },
+        {
+          name: 'linkedin',
+          type: 'text',
+        },
+        {
+          name: 'phone',
+          type: 'text',
+        },
+        {
+          name: 'email',
+          type: 'email',
+        },
+        {
+          name: 'major',
+          type: 'text',
+        },
+        {
+          name: 'position',
+          type: 'text',
+        },
+        {
+          name: 'university',
+          type: 'text',
+        },
+        {
+          name: 'cv',
+          type: 'upload',
+          relationTo: 'media',
+        },
+      ],
     },
     {
       name: 'projects',
@@ -43,7 +88,7 @@ export const Users: CollectionConfig = {
         },
         {
           name: 'description',
-          type: 'textarea',
+          type: 'richText',
         },
         {
           name: 'link',
@@ -66,7 +111,7 @@ export const Users: CollectionConfig = {
         },
         {
           name: 'description',
-          type: 'textarea',
+          type: 'richText',
         },
         {
           name: 'date',
@@ -76,7 +121,26 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'blog',
-      type: 'richText',
+      type: 'array',
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+        },
+        {
+          name: 'description',
+          type: 'richText',
+        },
+        {
+          name: 'link',
+          type: 'text',
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+        },
+      ],
     },
     {
       name: 'contact',

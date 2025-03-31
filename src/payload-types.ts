@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    projects: Project;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -428,6 +430,7 @@ export interface Category {
 export interface User {
   id: number;
   name: string;
+  slug: string;
   avatar?: (number | null) | Media;
   bio?: {
     root: {
@@ -444,10 +447,34 @@ export interface User {
     };
     [k: string]: unknown;
   } | null;
+  infomation?: {
+    github?: string | null;
+    linkedin?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    major?: string | null;
+    position?: string | null;
+    university?: string | null;
+    cv?: (number | null) | Media;
+  };
   projects?:
     | {
         title?: string | null;
-        description?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         link?: string | null;
         image?: (number | null) | Media;
         id?: string | null;
@@ -456,26 +483,48 @@ export interface User {
   activities?:
     | {
         title?: string | null;
-        description?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         date?: string | null;
         id?: string | null;
       }[]
     | null;
-  blog?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  blog?:
+    | {
+        title?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        link?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   contact?: {
     email?: string | null;
     phone?: string | null;
@@ -901,6 +950,40 @@ export interface BlogBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  link?: string | null;
+  image?: (number | null) | Media;
+  technologies?:
+    | {
+        technology?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  catogory: 'webdevelopment' | 'mobile' | 'ai' | 'ml' | 'blockchain';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1090,6 +1173,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1555,8 +1642,21 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   avatar?: T;
   bio?: T;
+  infomation?:
+    | T
+    | {
+        github?: T;
+        linkedin?: T;
+        phone?: T;
+        email?: T;
+        major?: T;
+        position?: T;
+        university?: T;
+        cv?: T;
+      };
   projects?:
     | T
     | {
@@ -1574,7 +1674,15 @@ export interface UsersSelect<T extends boolean = true> {
         date?: T;
         id?: T;
       };
-  blog?: T;
+  blog?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?: T;
+        image?: T;
+        id?: T;
+      };
   contact?:
     | T
     | {
@@ -1591,6 +1699,25 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  link?: T;
+  image?: T;
+  technologies?:
+    | T
+    | {
+        technology?: T;
+        id?: T;
+      };
+  catogory?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
