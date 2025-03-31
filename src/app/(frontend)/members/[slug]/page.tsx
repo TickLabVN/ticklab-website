@@ -7,16 +7,20 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { User } from '@/payload-types'
 import { Media } from '@/payload-types'
+import { PayloadRedirects } from '@/components/PayloadRedirects'
 
-async function MemberProfile() {
-  // Helper function to render the rich text bio
+type Args = {
+  params: Promise<{ slug: string }>
+}
+export default async function MemberProfile({ params: paramsPromise }: Args) {
+  const { slug } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
     collection: 'users',
     where: {
       slug: {
-        equals: 'thainguyengiabao',
+        equals: slug,
       },
     },
     limit: 1,
@@ -29,9 +33,14 @@ async function MemberProfile() {
     return <div>User not found</div>
   }
 
+  // You can now use the slug to query your data, etc.
   return (
     <div className="bg-white text-gray-800 font-sans mx-auto md:text-xl px-6 text-lg">
       <PageClient />
+
+      {/* <PayloadRedirects disableNotFound url={url} /> */}
+
+      {/* {draft && <LivePreviewListener />} */}
 
       {/* Hero / Intro Section */}
       <section className="my-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-8">
@@ -40,13 +49,13 @@ async function MemberProfile() {
           <Image
             width={960}
             height={960}
-            src={(user.avatar as Media).url || ''}
-            alt={(user.avatar as Media).alt || 'Profile Photo'}
+            src={(user.avatar as Media)?.url || '/default-avatar.jpg'}
+            alt={(user.avatar as Media)?.alt || 'Profile Photo'}
           />
         </div>
         {/* Intro Text */}
         <div className="flex-1 flex flex-col text-left gap-4">
-          <RichText className="max-w-[48rem] mx-auto" data={user.bio} enableGutter={false} />
+          <RichText className="mx-0" data={user.bio} enableGutter={false} />
           <div className="flex flex-wrap gap-4 text-sm md:text-lg">
             {user.infomation && user.infomation.cv && (
               <a
@@ -103,11 +112,7 @@ async function MemberProfile() {
                     <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
                       {project.title}
                     </h3>
-                    <RichText
-                      className="max-w-[48rem] mx-auto"
-                      data={project.description}
-                      enableGutter={false}
-                    />
+                    <RichText data={project.description} enableGutter={false} />
                   </div>
                   {/* Project Screenshot */}
                   {project.image && (
@@ -151,11 +156,7 @@ async function MemberProfile() {
                     <h3 className="text-xl md:text-3xl font-semibold text-gray-900 mb-4">
                       {project.title}
                     </h3>
-                    <RichText
-                      className="max-w-[48rem] mx-auto"
-                      data={project.description}
-                      enableGutter={false}
-                    />
+                    <RichText data={project.description} enableGutter={false} />
                   </div>
                 </>
               )}
@@ -170,13 +171,15 @@ async function MemberProfile() {
         {user.activities?.length === 0 && (
           <p className="text-gray-700 text-lg">There are no activities now</p>
         )}
-
         <div className="space-y-8">
           {user.activities?.map((activity) => (
             <div key={activity.id}>
               <h3 className="text-xl font-semibold">
                 <span className="font-bold">
-                  {new Date(activity?.date || ' ').toLocaleDateString()}
+                  {new Date(activity.date).toLocaleDateString('en-US', {
+                    month: 'short',
+                    year: 'numeric',
+                  })}
                 </span>
                 : {activity.title}
               </h3>
@@ -228,5 +231,3 @@ async function MemberProfile() {
     </div>
   )
 }
-
-export default MemberProfile
