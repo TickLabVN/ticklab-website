@@ -1,7 +1,7 @@
 import React from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { ProfileCard } from '@/components/ProfileCard'
+import { ProfileCard, Profile } from '@/components/ProfileCard'
 import PageClient from './page.client'
 
 // Customized Hero Section for Introducing Members
@@ -26,14 +26,24 @@ export default async function MemberList() {
   })
   console.log(result)
 
-  const members = result.docs.map((user) => ({
-    avatar: user.avatar?.url || '',
-    name: user.name || '',
-    role: user.role || '',
-    position: user.infomation?.position || 'Software Engineer',
-    major: user.infomation?.major || '',
-    university: user.infomation?.university || '',
-    slug: user.slug || '',
+  // export interface Profile {
+  //   avatar: string
+  //   name: string
+  //   role: string
+  //   position: string
+  //   major: string
+  //   university: string
+  //   slug: string
+  // }
+
+  const members: Profile[] = result.docs.map((user) => ({
+    avatar: typeof user.avatar === 'object' ? (user.avatar?.url ?? '') : '',
+    name: user.name ?? '',
+    role: user.role ?? '',
+    position: user.infomation?.position ?? 'Software Engineer',
+    major: user.infomation?.major ?? '',
+    university: user.infomation?.university ?? '',
+    slug: user.slug ?? '',
   }))
 
   const engineeringMembers = members.filter(

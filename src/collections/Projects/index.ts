@@ -30,6 +30,12 @@ export const Projects: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      required: true,
+    },
+    {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
@@ -45,32 +51,32 @@ export const Projects: CollectionConfig = {
       ],
     },
     {
-      name: 'catogory',
+      name: 'category',
       type: 'select',
       options: [
         {
-          label: 'WebDevelopment',
-          value: 'webdevelopment',
+          label: 'Web',
+          value: 'Web',
         },
         {
           label: 'Mobile',
-          value: 'mobile',
+          value: 'Mobile',
         },
         {
           label: 'AI',
-          value: 'ai',
+          value: 'AI',
         },
         {
-          label: 'ML',
-          value: 'ml',
+          label: 'Machine Learning',
+          value: 'Machine Learning',
         },
         {
           label: 'Blockchain',
-          value: 'blockchain',
+          value: 'Blockchain',
         },
       ],
       required: true,
-      defaultValue: 'webdevelopment',
+      defaultValue: 'Web',
     },
   ],
   timestamps: true,
