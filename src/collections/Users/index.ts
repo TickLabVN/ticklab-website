@@ -80,26 +80,9 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'projects',
-      type: 'array',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'description',
-          type: 'richText',
-        },
-        {
-          name: 'link',
-          type: 'text',
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'projects',
+      hasMany: true,
     },
     {
       name: 'activities',
@@ -120,27 +103,10 @@ export const Users: CollectionConfig = {
       ],
     },
     {
-      name: 'blog',
-      type: 'array',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'description',
-          type: 'richText',
-        },
-        {
-          name: 'link',
-          type: 'text',
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-        },
-      ],
+      name: 'blogs',
+      type: 'relationship',
+      relationTo: 'posts',
+      hasMany: true,
     },
     {
       name: 'contact',

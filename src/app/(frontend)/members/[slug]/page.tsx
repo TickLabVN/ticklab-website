@@ -5,7 +5,7 @@ import PageClient from './page.client' // adjust the import path as needed
 import RichText from '@/components/RichText'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { User } from '@/payload-types'
+import { Project, User } from '@/payload-types'
 import { Media } from '@/payload-types'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { ProjectCard } from '@/components/ProjectCard'
@@ -39,7 +39,6 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
     <div className="bg-white text-gray-800 font-sans mx-auto md:text-xl px-6 text-lg">
       <PageClient />
 
-
       {/* Hero / Intro Section */}
       <section className="my-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-8">
         {/* Profile Picture */}
@@ -47,7 +46,7 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
           <Image
             width={960}
             height={960}
-            src={(user.avatar as Media)?.url || '/default-avatar.jpg'}
+            src={typeof user.avatar == 'object' ? user.avatar?.url || '/placeholder.svg' : ''}
             alt={(user.avatar as Media)?.alt || 'Profile Photo'}
           />
         </div>
@@ -60,7 +59,7 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
           />
           <div className="flex flex-wrap gap-4 text-sm md:text-lg">
             <a
-              href={user.infomation?.cv?.url || '#'}
+              href={typeof user.infomation?.cv == 'object' ? user.infomation?.cv?.url || '#' : '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-shadow shadow-md"
@@ -99,7 +98,11 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
         ) : (
           <div>
             {user.projects?.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              <ProjectCard
+                key={typeof project == 'object' ? project.id : '1'}
+                project={project as Project}
+                index={index}
+              />
             ))}
           </div>
         )}
@@ -135,41 +138,31 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
       {/* Blog Section */}
       <section id="blog" className="max-w-7xl mx-auto py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Blog</h2>
-        {user.blog && user.blog.length > 0 ? (
-          <div className="prose max-w-none">
-            {user.blog.map((blogItem, idx) => (
-              <p key={idx}>
-                {blogItem?.root.children
-                  .map((child) => child.children?.map((c) => c.text).join(' ') || '')
-                  .join(' ')}
-              </p>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-700 text-lg">There is no blog now</p>
-        )}
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="max-w-7xl mx-auto  py-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Contact</h2>
-        {user.contact == undefined && (
+        {user.contact == undefined ? (
           <p className="text-gray-700 text-lg">There is no contact now</p>
+        ) : (
+          <div>
+            <p className="text-gray-700">
+              Interested in collaborating or learning more about my work? Feel free to reach out:
+            </p>
+            <ul className="list-none mt-4 text-gray-700 space-y-2">
+              <li>
+                <strong>Email:</strong>{' '}
+                <a href={`mailto:${user.contact.email}`} className="text-blue-600 hover:underline">
+                  {user.contact.email}
+                </a>
+              </li>
+              <li>
+                <strong>Phone:</strong> {user.contact.phone}
+              </li>
+            </ul>
+          </div>
         )}
-        <p className="text-gray-700">
-          Interested in collaborating or learning more about my work? Feel free to reach out:
-        </p>
-        <ul className="list-none mt-4 text-gray-700 space-y-2">
-          <li>
-            <strong>Email:</strong>{' '}
-            <a href={`mailto:${user.contact.email}`} className="text-blue-600 hover:underline">
-              {user.contact.email}
-            </a>
-          </li>
-          <li>
-            <strong>Phone:</strong> {user.contact.phone}
-          </li>
-        </ul>
       </section>
     </div>
   )

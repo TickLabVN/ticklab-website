@@ -457,29 +457,7 @@ export interface User {
     university?: string | null;
     cv?: (number | null) | Media;
   };
-  projects?:
-    | {
-        title?: string | null;
-        description?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        link?: string | null;
-        image?: (number | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  projects?: (number | Project)[] | null;
   activities?:
     | {
         title?: string | null;
@@ -502,29 +480,7 @@ export interface User {
         id?: string | null;
       }[]
     | null;
-  blog?:
-    | {
-        title?: string | null;
-        description?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        link?: string | null;
-        image?: (number | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  blogs?: (number | Post)[] | null;
   contact?: {
     email?: string | null;
     phone?: string | null;
@@ -540,6 +496,41 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  link?: string | null;
+  slug: string;
+  image?: (number | null) | Media;
+  technologies?:
+    | {
+        technology?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  category: 'Web' | 'Mobile' | 'AI' | 'Machine Learning' | 'Blockchain';
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -947,40 +938,6 @@ export interface BlogBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'blog';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "projects".
- */
-export interface Project {
-  id: number;
-  title?: string | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  link?: string | null;
-  image?: (number | null) | Media;
-  technologies?:
-    | {
-        technology?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  catogory: 'webdevelopment' | 'mobile' | 'ai' | 'ml' | 'blockchain';
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1657,15 +1614,7 @@ export interface UsersSelect<T extends boolean = true> {
         university?: T;
         cv?: T;
       };
-  projects?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        link?: T;
-        image?: T;
-        id?: T;
-      };
+  projects?: T;
   activities?:
     | T
     | {
@@ -1674,15 +1623,7 @@ export interface UsersSelect<T extends boolean = true> {
         date?: T;
         id?: T;
       };
-  blog?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        link?: T;
-        image?: T;
-        id?: T;
-      };
+  blogs?: T;
   contact?:
     | T
     | {
@@ -1708,6 +1649,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   link?: T;
+  slug?: T;
   image?: T;
   technologies?:
     | T
@@ -1715,7 +1657,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         technology?: T;
         id?: T;
       };
-  catogory?: T;
+  category?: T;
   updatedAt?: T;
   createdAt?: T;
 }
