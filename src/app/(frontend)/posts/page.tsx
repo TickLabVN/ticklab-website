@@ -7,6 +7,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 import { PostCard } from '@/components/PostCard'
+import { Post } from '@/payload-types'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -82,7 +83,7 @@ export default async function Page() {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.docs?.map((post) => {
-            return <PostCard key={post.id} post={post} />
+            return <PostCard key={post.id} post={post as Post} />
           })}
         </div>
       </div>
