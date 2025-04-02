@@ -28,9 +28,11 @@ export const ProjectCard = ({ project, index }: { project: Project; index: numbe
     </div>
   )
 
+  const blogslug = typeof project.posts == 'object' ? project.posts?.slug : '#'
+
   const screenshot = project.image && (
-    <Link href={'/posts/' + project.slug} className="flex-1">
-      <div className="relative md:w-full h-[300px] sm:h-[500px] shadow-lg">
+    <Link href={'/posts/' + blogslug} className="flex-1">
+      <div className="relative md:w-full h-[300px] sm:h-[500px] shadow-sm">
         {typeof project.image === 'object' && (
           <Image
             src={project.image.url || '/placeholder.svg'}

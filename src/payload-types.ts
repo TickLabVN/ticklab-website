@@ -504,6 +504,7 @@ export interface User {
 export interface Project {
   id: number;
   title?: string | null;
+  author?: (number | User)[] | null;
   description?: {
     root: {
       type: string;
@@ -520,7 +521,7 @@ export interface Project {
     [k: string]: unknown;
   } | null;
   link?: string | null;
-  slug: string;
+  posts?: (number | null) | Post;
   image?: (number | null) | Media;
   technologies?:
     | {
@@ -1647,9 +1648,10 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  author?: T;
   description?: T;
   link?: T;
-  slug?: T;
+  posts?: T;
   image?: T;
   technologies?:
     | T

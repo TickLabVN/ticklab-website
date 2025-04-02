@@ -6,11 +6,11 @@ import { isMember } from '@/access/member'
 export const Projects: CollectionConfig = {
   slug: 'projects',
   access: {
-    admin: authenticated,
-    create: authenticated,
-    delete: authenticated,
+    admin: isAdmin,
+    create: isMember,
+    delete: isAdmin,
     read: authenticated,
-    update: authenticated,
+    update: isMember,
   },
   admin: {
     defaultColumns: ['title', 'catogory'],
@@ -22,6 +22,12 @@ export const Projects: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'users',
+      hasMany: true,
+    },
+    {
       name: 'description',
       type: 'richText',
     },
@@ -30,10 +36,10 @@ export const Projects: CollectionConfig = {
       type: 'text',
     },
     {
-      name: 'slug',
-      type: 'text',
-      unique: true,
-      required: true,
+      name: 'posts',
+      type: 'relationship',
+      relationTo: 'posts',
+      hasMany: false,
     },
     {
       name: 'image',
