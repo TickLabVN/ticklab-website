@@ -430,7 +430,7 @@ export interface Category {
 export interface User {
   id: number;
   name: string;
-  slug: string;
+  slug?: string | null;
   avatar?: (number | null) | Media;
   bio?: {
     root: {

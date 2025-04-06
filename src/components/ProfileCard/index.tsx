@@ -17,7 +17,7 @@ export interface ProfileCardProps {
 
 export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
   return (
-    <div className="w-80 relative border border-gray-200 rounded-2xl shadow-md p-5 flex flex-col items-center bg-white ">
+    <div className="min-w-80 w-full relative border border-gray-200 rounded-2xl shadow-md p-5 flex flex-col items-center bg-white ">
       <span className="absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-green-700 border border-green-600 rounded-full">
         {profile.role}
       </span>

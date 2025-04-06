@@ -72,7 +72,7 @@ export default async function MemberList() {
               Meet our dedicated engineers who bring ideas to life and ensure that our projects run
               smoothly.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mx-auto">
               {engineeringMembers.map((member) => (
                 <ProfileCard key={member.slug} profile={member} />
               ))}
