@@ -16,6 +16,16 @@ services:
       - MINIO_SECRET_ACCESS_KEY=${MINIO_SECRET_ACCESS_KEY}
     ports:
       - '3000:3000'
+  ticklab-db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ticklab
+    ports:
+      - '5234:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  minio:
+  postgres_data:
