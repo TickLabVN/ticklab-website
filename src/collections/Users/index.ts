@@ -27,7 +27,7 @@ export const Users: CollectionConfig = {
       name: 'slug',
       type: 'text',
       unique: true,
-      required: true,
+      //required: true,
     },
     {
       name: 'avatar',

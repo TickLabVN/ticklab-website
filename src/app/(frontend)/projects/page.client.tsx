@@ -23,7 +23,7 @@ const FilterButtons: React.FC = () => {
         <button
           key={filter}
           onClick={() => handleFilter(filter)}
-          className="inline-block text-lg font-semibold bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition-colors"
+          className="inline-block text-lg font-semibold bg-green-700 text-white px-4 py-1 rounded-full hover:bg-green-800 transition-colors"
         >
           {filter.charAt(0).toUpperCase() + filter.slice(1)}
         </button>

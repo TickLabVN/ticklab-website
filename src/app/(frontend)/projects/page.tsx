@@ -1,9 +1,9 @@
 import React from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { ProjectCard } from '@/components/ProjectCard'
 import { Project } from '@/payload-types'
 import PageClient from './page.client'
+import { ProjectCardV } from '@/components/ProjectCardVertical'
 
 // Hero section component
 function HeroSection() {
@@ -62,16 +62,18 @@ export default async function Projects({ searchParams: searchParamsPromise }: Ar
       <PageClient />
 
       {/* Projects Grid */}
-      <div className="px-4">
+      <div className="px-4 md:px-10">
         {projects.length === 0 || error ? (
           <div className="text-center py-12">
             <h2 className="text-3xl font-bold mb-4">No Projects Found</h2>
             <p className="text-lg text-gray-600">Please check back later for updates.</p>
           </div>
         ) : (
-          projects.map((project: Project, index: number) => (
-            <ProjectCard key={project.id} index={index} project={project} />
-          ))
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            {projects.map((project: Project) => (
+              <ProjectCardV key={project.id} project={project} />
+            ))}
+          </div>
         )}
       </div>
     </div>
