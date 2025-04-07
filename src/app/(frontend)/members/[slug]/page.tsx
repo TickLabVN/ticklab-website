@@ -11,6 +11,7 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { ProjectCard } from '@/components/ProjectCard'
 import { PostCard } from '@/components/PostCard'
 import { Post } from '@/payload-types'
+import { MarkdownBlock } from '@/blocks/Markdown/Component'
 
 type Args = {
   params: Promise<{ slug: string }>
@@ -29,7 +30,6 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
     limit: 1,
     pagination: false,
   })
-  console.log(result)
 
   const user: User | undefined = result.docs[0]
   if (!user) {
@@ -56,12 +56,12 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
         <div className="flex-1 flex flex-col text-left gap-4">
           <RichText
             className="mx-0"
-            data={user.bio as DefaultTypedEditorState}
+            data={user.about as DefaultTypedEditorState}
             enableGutter={false}
           />
           <div className="flex flex-wrap gap-4 text-sm md:text-lg">
             <a
-              href={typeof user.infomation?.cv == 'object' ? user.infomation?.cv?.url || '#' : '#'}
+              href={typeof user.information?.cv == 'object' ? user.information?.cv?.url || '#' : '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-blue-700 transition-shadow shadow-md"
@@ -71,7 +71,7 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
             </a>
 
             <a
-              href={user.infomation?.github || '#'}
+              href={user.information?.github || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 transition-shadow shadow-md"
@@ -80,7 +80,7 @@ export default async function MemberProfile({ params: paramsPromise }: Args) {
               <span>GitHub</span>
             </a>
             <a
-              href={user.infomation?.linkedin || '#'}
+              href={user.information?.linkedin || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 transition-shadow shadow-md"

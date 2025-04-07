@@ -31,8 +31,6 @@ export default async function Page() {
     },
   })
 
-  console.log('Posts:', posts)
-
   return (
     <div className="pt-12 pb-24 ">
       <PageClient />

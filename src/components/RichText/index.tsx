@@ -17,14 +17,18 @@ import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
+  EquationBlock as EquationBlockProps,
+  MarkdownBlock as MarkdownBlockProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
+import { EquationBlock } from '@/blocks/Equation/Component'
+import { MarkdownBlock } from '@/blocks/Markdown/Component'
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps | EquationBlockProps | MarkdownBlockProps>
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -49,6 +53,16 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         enableGutter={false}
         disableInnerContainer={true}
       />
+    ),
+    equation: ({ node }) => (
+      <div className="col-start-2 mb-4">
+        <EquationBlock {...node.fields} />
+      </div>
+    ),
+    markdown: ({ node }) => (
+      <div className="col-start-2 mb-4">
+        <MarkdownBlock content={node.fields.content} />
+      </div>
     ),
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
