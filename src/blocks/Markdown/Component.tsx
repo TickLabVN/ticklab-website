@@ -10,19 +10,6 @@ export type MarkdownProps = {
 
 export const MarkdownBlock: React.FC<MarkdownProps> = ({ content }) => {
   return <Markdown
-    components={{
-      code({ node, className, children, ...props }) {
-        console.log(children);
-        return (
-          <code
-            className={className}
-            {...props}
-          >
-            {children}
-          </code>
-        )
-      }
-    }}
     remarkPlugins={[remarkMath, remarkGFM]}
     rehypePlugins={[rehypeKatex, rehypeRaw]}
   >
