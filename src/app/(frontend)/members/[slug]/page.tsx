@@ -11,7 +11,6 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { ProjectCard } from '@/components/ProjectCard'
 import { PostCard } from '@/components/PostCard'
 import { Post } from '@/payload-types'
-import { MarkdownBlock } from '@/blocks/Markdown/Component'
 
 type Args = {
   params: Promise<{ slug: string }>

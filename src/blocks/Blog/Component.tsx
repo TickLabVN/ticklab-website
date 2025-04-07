@@ -29,7 +29,7 @@ type Props = {
   posts?: Post[]
 }
 
-export const Blog: React.FC<Props> = ({ title, description, posts = [] }) => {
+export const Blog: React.FC<Props> = ({ title, posts = [] }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, amount: 0.2 })
 

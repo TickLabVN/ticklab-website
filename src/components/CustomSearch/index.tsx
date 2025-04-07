@@ -13,7 +13,7 @@ export const Search = ({ page }: { page: string }) => {
 
   useEffect(() => {
     router.push(`/${page}${debouncedValue ? `?q=${debouncedValue}` : ''}`)
-  }, [debouncedValue, router])
+  }, [debouncedValue, router, page])
 
   return (
     <div>

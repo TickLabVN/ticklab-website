@@ -14,10 +14,12 @@ export const EquationBlock: React.FC<Props> = ({ equation, className }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    containerRef.current && katex.render(equation, containerRef.current, {
-      throwOnError: false,
-      displayMode: true,
-    });
+    if (containerRef.current) {
+      katex.render(equation, containerRef.current, {
+        throwOnError: false,
+        displayMode: true,
+      });
+    }
   }, [equation]);
 
   return <div className={className} ref={containerRef} />

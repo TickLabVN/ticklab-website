@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
-import { motion, useAnimation, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import type { Media } from "@/payload-types"
 
 type Props = {

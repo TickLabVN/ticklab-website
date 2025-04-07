@@ -5,12 +5,8 @@ import type { StaticImageData } from 'next/image'
 import { cn } from '@/utilities/ui'
 import NextImage from 'next/image'
 import React from 'react'
-
 import type { Props as MediaProps } from '../types'
-
 import { cssVariables } from '@/cssVariables'
-import { getClientSideURL } from '@/utilities/getURL'
-
 const { breakpoints } = cssVariables
 
 // A base64 encoded image to use as a placeholder while the image is loading

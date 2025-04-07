@@ -1,6 +1,6 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
-export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "users" RENAME COLUMN "bio" TO "about";
   ALTER TABLE "users" RENAME COLUMN "infomation_github" TO "information_github";
@@ -23,7 +23,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "users_information_information_cv_idx" ON "users" USING btree ("information_cv_id");`)
 }
 
-export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
+export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "users" RENAME COLUMN "about" TO "bio";
   ALTER TABLE "users" RENAME COLUMN "information_github" TO "infomation_github";

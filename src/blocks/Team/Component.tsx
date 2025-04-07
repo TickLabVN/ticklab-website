@@ -17,7 +17,7 @@ type Props = {
 
 export const Team: React.FC<Props> = ({
   title = "OUR TEAMS",
-  description = "Meet our passionate team members who drive innovation and excellence across different projects and initiatives.",
+  // description = "Meet our passionate team members who drive innovation and excellence across different projects and initiatives.",
   photos = []
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
