@@ -24,25 +24,14 @@ export default async function MemberList() {
     limit: 20,
     pagination: false,
   })
-  console.log(result)
-
-  // export interface Profile {
-  //   avatar: string
-  //   name: string
-  //   role: string
-  //   position: string
-  //   major: string
-  //   university: string
-  //   slug: string
-  // }
 
   const members: Profile[] = result.docs.map((user) => ({
     avatar: typeof user.avatar === 'object' ? (user.avatar?.url ?? '') : '',
     name: user.name ?? '',
     role: user.role ?? '',
-    position: user.infomation?.position ?? 'Software Engineer',
-    major: user.infomation?.major ?? '',
-    university: user.infomation?.university ?? '',
+    position: user.information?.position ?? 'Software Engineer',
+    major: user.information?.major ?? '',
+    university: user.information?.university ?? '',
     slug: user.slug ?? '',
   }))
 

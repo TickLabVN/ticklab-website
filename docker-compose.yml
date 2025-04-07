@@ -18,6 +18,7 @@ services:
       - '3000:3000'
   ticklab-db:
     image: postgres:17
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

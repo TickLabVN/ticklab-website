@@ -14,6 +14,8 @@ import { MissionSection } from '@/blocks/MissionSection/Component'
 import { RoleSection } from '@/blocks/RoleSection/Component'
 import { SliderSection } from '@/blocks/SliderSection/Component'
 import { Team } from '@/blocks/Team/Component'
+import { EquationBlock } from './Equation/Component'
+import { MarkdownBlock } from './Markdown/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -28,6 +30,8 @@ const blockComponents = {
   roleSection: RoleSection,
   sliderSection: SliderSection,
   team: Team,
+  equation: EquationBlock,
+  markdown: MarkdownBlock
 }
 
 export const RenderBlocks: React.FC<{

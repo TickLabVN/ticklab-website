@@ -2,6 +2,8 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '@/access/authenticated'
 import { isAdmin } from '@/access/admin'
 import { isMember } from '@/access/member'
+import { BlocksFeature, FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { Markdown } from '@/blocks/Markdown/config'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -35,11 +37,21 @@ export const Users: CollectionConfig = {
       relationTo: 'media',
     },
     {
-      name: 'bio',
+      name: 'about',
       type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            FixedToolbarFeature(),
+            BlocksFeature({ blocks: [Markdown]})
+          ]
+        },
+      }),
+      label: 'About',
     },
     {
-      name: 'infomation',
+      name: 'information',
       type: 'group',
       // Contain: gitgithub, linkedin, phone, email, major, university
       fields: [

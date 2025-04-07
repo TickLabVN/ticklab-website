@@ -26,6 +26,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
+import { Equation } from '@/blocks/Equation/config'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -74,7 +75,6 @@ export const Posts: CollectionConfig<'posts'> = {
       type: 'text',
       required: true,
     },
-
     {
       type: 'tabs',
       tabs: [
@@ -92,8 +92,8 @@ export const Posts: CollectionConfig<'posts'> = {
                 features: ({ rootFeatures }) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock, Equation] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),

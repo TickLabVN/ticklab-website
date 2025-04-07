@@ -27,7 +27,6 @@ export default async function Projects({ searchParams: searchParamsPromise }: Ar
   const payload = await getPayload({ config: configPromise })
   //const filters = buildFilters(searchParams)
   const { category } = await searchParamsPromise
-  console.log(category)
   let error = false
 
   const capitalizedCategory = category

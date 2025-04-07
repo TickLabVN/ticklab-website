@@ -432,7 +432,7 @@ export interface User {
   name: string;
   slug?: string | null;
   avatar?: (number | null) | Media;
-  bio?: {
+  about?: {
     root: {
       type: string;
       children: {
@@ -447,7 +447,7 @@ export interface User {
     };
     [k: string]: unknown;
   } | null;
-  infomation?: {
+  information?: {
     github?: string | null;
     linkedin?: string | null;
     phone?: string | null;
@@ -1602,8 +1602,8 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   avatar?: T;
-  bio?: T;
-  infomation?:
+  about?: T;
+  information?:
     | T
     | {
         github?: T;
@@ -2135,6 +2135,26 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EquationBlock".
+ */
+export interface EquationBlock {
+  equation: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'equation';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarkdownBlock".
+ */
+export interface MarkdownBlock {
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'markdown';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
